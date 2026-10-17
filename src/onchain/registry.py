@@ -56,7 +56,30 @@ def validate(apps: list[dict]) -> list[str]:
         for c in (a.get("polymarket") or {}).get("builder_codes", []):
             if not CODE.match(c):
                 errs.append(f"{i}: bad PM builder code {c}")
+        lines = a.get("product_lines") or []
+        ids = [ln.get("id") for ln in lines]
+        if len(ids) != len(set(ids)):
+            errs.append(f"{i}: duplicate product_line id")
+        for ln in lines:
+            src = (ln.get("measure") or {}).get("source")
+            if src not in LINE_SOURCES:
+                errs.append(f"{i}/{ln.get('id')}: measure.source must be one of {sorted(LINE_SOURCES)}")
+            if src == "hl-builder" and (ln["measure"].get("asset_class") not in ("perp", "hip3", "spot", "outcome")):
+                errs.append(f"{i}/{ln.get('id')}: hl-builder needs asset_class perp|hip3|spot|outcome")
+            if src == "defillama" and not {"parent", "child"} <= set(ln["measure"]):
+                errs.append(f"{i}/{ln.get('id')}: defillama needs parent and child")
+            if ln.get("stream") not in STREAMS:
+                errs.append(f"{i}/{ln.get('id')}: stream must be one of {sorted(STREAMS)}")
+        # R1: two lines must not measure the same thing
+        keys = [repr(sorted((ln.get("measure") or {}).items())) for ln in lines if (ln.get("measure") or {}).get("source") != "none"]
+        if len(keys) != len(set(keys)):
+            errs.append(f"{i}: two product lines share the same measurement (double count)")
     return errs
+
+
+LINE_SOURCES = {"hl-builder", "pm-builder", "defillama", "none"}
+STREAMS = {"builder-fees", "swap-fees", "protocol-fees", "spread", "subscription", "mev-priority", "staking-yield",
+           "token-sales", "referral", "card-interchange", "listing-fees", "other"}
 
 
 def find(query: str) -> dict | None:

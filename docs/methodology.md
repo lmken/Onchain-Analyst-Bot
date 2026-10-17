@@ -78,3 +78,52 @@ Apps with several builder addresses are summed per day before any distinct count
    - Verified 2026-10-17 for one large builder over 30 days: core perps differed by −1.6%. All revenue including HIP-3 was +12.9% higher. DefiLlama's Hyperliquid builder adapter reads its own indexer (builder daily summaries, `hl-indexer.llama.rip`), so it's a largely independent check. A shortfall of about 40–50% usually means feed truncation wasn't filled.
 2. **Builder fills vs `builderRewards`:** the lifetime sum of fills since `first_seen` must be ≤ the lifetime rewards and close to them. Rewards update in batches.
 3. **Polymarket:** builder notional (USDC) vs leaderboard shares × average price, as a sanity check (±15%).
+
+## 7. Whole-company rollup (any app, product-first)
+
+The question "how much does app X make?" is answered per **product line**, never from a single source.
+The `product-revenue-map` skill is the procedure. The registry `product_lines` cache its result.
+`onchain app <name>` runs it.
+
+**Steps:**
+1. Understand the product.
+2. Enumerate the revenue streams.
+3. Map each stream to its on-chain footprint.
+4. Measure each line once and roll up.
+5. Cross-check.
+
+**Stream types:** builder-fees, swap-fees, spread, protocol-fees, subscription, mev-priority, staking-yield, token-sales, referral, card-interchange, listing-fees, other. A stream with no on-chain footprint stays in the table as `measure.source: none` ("not visible").
+
+**Line measurement sources:**
+
+| `measure.source` | What it measures | Primary for |
+|---|---|---|
+| `hl-builder` + `asset_class` (perp, hip3, spot, outcome) | HL builder_fills feed with SQD gap-fill, split by coin class. Fees are builder fees. Volume is taker-side. Users are fill addresses. | any HL builder code |
+| `pm-builder` | Polymarket CLOB `/builder/trades` over the window: `builderFee` summed; volume is `sizeUsdc` on TAKER rows only | any Polymarket builder code |
+| `defillama` + `parent`, `child`, optional `chains` / `exclude_chains` | DefiLlama `totalDataChartBreakdown` (chain → child → USD), summed over the window. Fees come from `dailyFees`, revenue from `dailyRevenue`, and volume from `/summary/dexs` when it exists. | lines with no free keyless on-chain measurement (wallet swap fees on many chains) |
+| `none` | nothing; listed as not visible | off-chain lines |
+
+**Dedupe rules:**
+- **R1** Lines partition activity: each fill, swap or trade lands in exactly one line. The registry validator rejects two lines with identical measurement.
+- **R2** Volume is taker-side only.
+- **R3** Fees are counted per fee charged.
+- **R4** A DefiLlama parent total is never added on top of its children.
+- **R5** One primary source per line. An aggregator figure for a line measured on-chain is a cross-check only.
+- **R6** Users are unioned within one address namespace only. Hyperliquid and EVM share 0x addresses. Solana is separate and is never summed with EVM.
+
+**Coverage:**
+- The share of rollup revenue measured on-chain (vs aggregator-sourced).
+- Builder-day completeness for HL lines.
+- Paging completeness for Polymarket lines.
+- The list of not-visible lines.
+
+**Cross-checks:**
+- Each on-chain line vs its DefiLlama child (`crosscheck.defillama_child`). Lines that may or may not be inside that child (`crosscheck.maybe_in`, e.g. HIP-3 inside "<app> Perps") are reported both ways.
+- Rollup total vs the DefiLlama parent total.
+
+**Verification of aggregator-sourced lines:** spot-check the fee wallet on a free RPC. For a Solana token account, count all signatures in a window, sample transactions evenly, and estimate inflow as mean (post − pre) × count. Use `docs/snippets/solana_token_inflow.py`. This is an order-of-magnitude check only.
+
+**Findings (2026-10-17):**
+- DefiLlama's "Perps" children are inconsistent about HIP-3. For one app the child tracks core perps only (HIP-3 excluded). For another it equals core perps + HIP-3 to within 0.5% on most days.
+- Never assume either way: compare both variants day by day and record which one fits in the app's registry note.
+- Cross-chain swap fees that the app cannot attribute to a chain may be booked on one chain by the aggregator. Don't re-split them.

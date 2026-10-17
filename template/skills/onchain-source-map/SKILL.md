@@ -17,6 +17,7 @@ All sources are free and keyless.
 | PM builders | `https://data-api.polymarket.com/v2/builders/leaderboard?time_period=week`; revenue `https://clob.polymarket.com/builder/trades?builder_code=` |
 | Fees / revenue | `https://api.llama.fi/summary/fees/<slug>?dataType=dailyFees|dailyRevenue|dailyHoldersRevenue` |
 | Prices | `https://coins.llama.fi/prices/current/coingecko:<id>` |
+| Whole-company revenue (any app) | follow product-revenue-map |
 
 - **Pace:** about 1 request per second to HL info and DefiLlama. Retry SQD on `overloaded`.
 - **Don't use:** Dune Sim, Flipside, Goldsky Polymarket subgraphs.

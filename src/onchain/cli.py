@@ -6,7 +6,7 @@ import datetime as dt
 import os
 import sys
 
-from . import METHOD_VERSION, __version__, hl, http, llama, metrics, output, pm, registry, timeutil
+from . import METHOD_VERSION, __version__, hl, http, llama, metrics, output, pm, registry, rollup, timeutil
 
 
 def _err(*a):
@@ -399,6 +399,36 @@ def cmd_app_compare(a):
     return cmd_hl_builders(a)
 
 
+def cmd_app(a):
+    """Whole-company rollup driven by the app's registry product_lines."""
+    app = registry.find(a.target)
+    if not app:
+        _err(f"unknown app {a.target!r}; map it first (product-revenue-map skill) and add it to registry.local.yaml")
+        return 2
+    window = timeutil.parse_window(a.window)
+    _err(f"rolling up {app['id']} over {window[0]} → {window[1]} …")
+    res = rollup.rollup(app, window, gapfill=not a.no_gapfill)
+    rows = [{"line": r["line"], "stream": r["stream"], "chain": r["chain"], "fees_usd": r["fees_usd"],
+             "revenue_usd": r["revenue_usd"], "taker_volume_usd": r["volume_usd"], "users": r["unique_users"],
+             "measured": r["measured"], "coverage": r["coverage"], "source": r["source"]} for r in res["lines"]]
+    t = res["total"]
+    rows.append({"line": "TOTAL", "stream": "", "chain": "", "fees_usd": t["fees_usd"], "revenue_usd": t["revenue_usd"],
+                 "taker_volume_usd": t["volume_usd"],
+                 "users": "; ".join(f"{k}:{v}" for k, v in t["unique_users_by_namespace"].items()) or None,
+                 "measured": f"{t['onchain_share_of_revenue']:.0%} of revenue measured on-chain", "coverage": "",
+                 "source": "not measured: " + (", ".join(t["lines_not_measured"]) or "none")})
+    if a.format == "json":
+        import json
+        print(json.dumps(res, default=str, indent=1))
+        return 0
+    output.render(rows, a.format, _footer(sorted({r["source"].split(" →")[0].split(" [")[0] for r in res["lines"]}), window,
+                                          {"dedupe": "R1-R6 (docs/methodology.md §7)"}))
+    if res["crosscheck"]:
+        print()
+        output.render(res["crosscheck"], a.format)
+    return 0
+
+
 def build_parser() -> argparse.ArgumentParser:
     p = argparse.ArgumentParser(prog="onchain", description="Onchain Analyst toolkit (read-only, keyless).")
     p.add_argument("--version", action="version", version=__version__)
@@ -444,6 +474,9 @@ def build_parser() -> argparse.ArgumentParser:
     r.add_argument("target", nargs="?"); r.set_defaults(fn=cmd_registry)
     c = sub.add_parser("compare"); c.add_argument("ids", nargs="+"); c.add_argument("--window", default="30d")
     c.add_argument("--no-gapfill", action="store_true"); c.set_defaults(fn=cmd_app_compare)
+    x = sub.add_parser("app", help="whole-company rollup from registry product_lines")
+    x.add_argument("target"); x.add_argument("--window", default="30d"); x.add_argument("--no-gapfill", action="store_true")
+    x.set_defaults(fn=cmd_app)
     return p
 
 

@@ -3,9 +3,9 @@
   "template_mode": "full",
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
-    "skills": 14,
-    "full_template_bytes": 34695,
-    "core_template_bytes": 11974
+    "skills": 15,
+    "full_template_bytes": 39693,
+    "core_template_bytes": 13742
   },
   "skills": [
     {
@@ -97,13 +97,13 @@
       "version": "0.1.0",
       "tier": "core",
       "path": "skills/onchain-source-map/SKILL.md",
-      "sha256": "b2419c2660e6d00ae05f5595e572034c011c3b5ed1c817904f9bfc373ddfaf6e",
-      "bytes": 3627,
+      "sha256": "b72d01ff07fe4075d8531e8cd183728d0325e15521c4a0fbdf4bfd68f5d01483",
+      "bytes": 3989,
       "short": {
         "path": "template/skills/onchain-source-map/SKILL.md",
         "version": "0.1.0-short",
-        "sha256": "674ea7db845b060493ba6e57087c85b4eaf86847b1ad719463f263a9d8942307",
-        "bytes": 1681
+        "sha256": "70bac8263d7b36728e4330f378a2785ffc7a7aeb224fbf59d51e9271ec4eb71e",
+        "bytes": 1746
       }
     },
     {
@@ -157,6 +157,22 @@
       "path": "skills/polymarket-wallets/SKILL.md",
       "sha256": "4a4b5f37f34d9109520a0076669a90371ffe6ecd36a1744c6b20bc996f1d6b20",
       "bytes": 1751
+    },
+    {
+      "slug": "product-revenue-map",
+      "name": "product-revenue-map",
+      "description": "Use when asked how much any on-chain app, wallet, frontend or protocol makes (revenue, fees, volume, users) across all its products and chains. Maps the business model to on-chain footprints, measures each line once, rolls up with dedupe rules and cross-checks aggregators.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/product-revenue-map/SKILL.md",
+      "sha256": "fe9c6f38531e6872f344d4bdd62a42c9739f1757955de076a57aa0f51ea0fd3e",
+      "bytes": 4636,
+      "short": {
+        "path": "template/skills/product-revenue-map/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "d66acc41011842410481c04cd3e9076326c350ad1c17daed2b40f11d7551ad3e",
+        "bytes": 1703
+      }
     },
     {
       "slug": "protocol-fees",

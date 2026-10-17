@@ -23,8 +23,8 @@ def test_manifest_covers_all_skills():
     import json
     m = json.loads((ROOT / "skills" / "manifest.json").read_text())
     slugs = {s["slug"] for s in m["skills"]}
-    assert len(slugs) == 14 and "onchain-getting-started" in slugs
-    assert sum(1 for s in m["skills"] if "short" in s) == 6
+    assert len(slugs) == 15 and "onchain-getting-started" in slugs
+    assert sum(1 for s in m["skills"] if "short" in s) == 7
 
 
 def test_every_data_skill_has_a_smoke_snippet():

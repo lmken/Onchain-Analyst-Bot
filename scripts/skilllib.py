@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 MARKER = re.compile(r"^Skill version: (?P<slug>[a-z0-9-]+) v(?P<version>\d+\.\d+\.\d+(?:-short)?) \(Onchain Analyst\)$")
-CORE = ["onchain-source-map", "onchain-methodology", "hyperliquid-builders", "polymarket-builders",
+CORE = ["onchain-source-map", "onchain-methodology", "product-revenue-map", "hyperliquid-builders", "polymarket-builders",
         "protocol-fees", "onchain-update-skills"]
 
 

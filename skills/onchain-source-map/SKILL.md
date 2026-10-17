@@ -21,6 +21,8 @@ All sources below are free, public and keyless. Query them directly from this co
 | Protocol fees / revenue / holders revenue | DefiLlama | `https://api.llama.fi/summary/fees/<slug>?dataType=dailyFees|dailyRevenue|dailyHoldersRevenue` |
 | Fee rankings | DefiLlama | `https://api.llama.fi/overview/fees` |
 | Token prices | DefiLlama coins | `https://coins.llama.fi/prices/current/coingecko:<id>`; fallback `https://api.coingecko.com/api/v3/simple/price?ids=<id>&vs_currencies=usd` |
+| Whole-company revenue of any app (all products, chains) | product-revenue-map | DefiLlama `totalDataChartBreakdown` split by chain and child, plus on-chain lines |
+| Solana fee wallet / token account spot check | Solana public RPC | `POST https://api.mainnet-beta.solana.com` `getSignaturesForAddress`, `getTransaction` (`maxSupportedTransactionVersion: 1`) |
 | Which address/code belongs to an app | Registry | `{REPO_RAW}/{TAG}/registry/apps.yaml` (see app-registry) |
 
 `{REPO_RAW}` and `{TAG}` are recorded in the memory `onchain-skills-manifest`.

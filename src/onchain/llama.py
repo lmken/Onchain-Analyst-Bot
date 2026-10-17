@@ -41,3 +41,8 @@ def prices(ids: list[str]) -> dict:
     ids = [i if ":" in i else f"coingecko:{i}" for i in ids]
     return cache.cached("llama:price:" + ",".join(ids), 300,
                         lambda: http.get_json(f"{COINS}/prices/current/" + ",".join(ids)))
+
+
+def dexs(slug: str) -> dict:
+    """DEX/aggregator volume summary (keyless). Raises on 404 when the slug has no volume adapter."""
+    return cache.cached(f"llama:dexs:{slug}", 3600, lambda: http.get_json(f"{API}/summary/dexs/{slug}"))

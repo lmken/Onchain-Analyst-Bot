@@ -71,6 +71,56 @@ apps:
           verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 110000}
     defillama: {slug: fomo, perps: fomo-perps}
     sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+    product:
+      what: "Social trading app: self-custodial mobile swaps (Solana + cross-chain via Relay), copy-trading, Hyperliquid perps/HIP-3/spot/outcomes through a builder code."
+      who_pays: "Traders, per trade (swap fee in USDC on Solana; Relay platform fee on EVM; HL builder fee)."
+      sources: ["https://api.llama.fi/summary/fees/fomo (childProtocols methodology)", "https://fomo.family"]
+      mapped: 2026-10-17
+    product_lines:
+      - id: hl-perps
+        stream: builder-fees
+        product: "Hyperliquid core perps routed with the app's builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: perp}
+        crosscheck: {defillama_child: "fomo Perps"}
+      - id: hl-hip3
+        stream: builder-fees
+        product: "Hyperliquid HIP-3 (builder-deployed perp dexes, dex:COIN)"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: hip3}
+        crosscheck: {maybe_in: "fomo Perps", note: "DefiLlama perps children include HIP-3 for some apps, not others; the cross-check reports both"}
+      - id: hl-spot
+        stream: builder-fees
+        product: "Hyperliquid spot routed with the builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: spot}
+        crosscheck: {defillama_child: "fomo Spot"}
+      - id: hl-outcome
+        stream: builder-fees
+        product: "Hyperliquid HIP-4 outcome markets routed with the builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: outcome}
+        crosscheck: {defillama_child: "fomo Outcome"}
+      - id: wallet-swaps-solana
+        stream: swap-fees
+        product: "Native Solana token swaps in the app (USDC fee). DefiLlama also books unattributed Relay fees here."
+        chain: solana
+        identifiers:
+          fee_owner: "R4rNJHaffSUotNmqSKNEfDcJE8A7zJUkaoM5Jkd7cYX"
+          usdc_token_account: "HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq"
+          verified: {at: 2026-10-17, method: [solana-rpc-owner-lookup], note: "owner from prior research; USDC ATA resolved via public RPC"}
+        measure: {source: defillama, parent: fomo, child: "fomo Wallet", chains: [Solana]}
+        verify: {source: solana-token-inflow, account: "HrTf9CzXR1dRH4Sof5QrpmGWwpwAf3qZzwCsEjQpXcSq"}
+      - id: wallet-swaps-evm-relay
+        stream: swap-fees
+        product: "Cross-chain trades via Relay, booked on the chain they settle on (Robinhood Chain, BNB, Ethereum, Base, Arc, Monad)"
+        chain: evm
+        identifiers: {note: "Relay platform-fee recipient not mapped yet; needs a traced transaction"}
+        measure: {source: defillama, parent: fomo, child: "fomo Wallet", exclude_chains: [Solana]}
+      - id: offchain
+        stream: other
+        product: "No off-chain revenue lines identified (no card, subscription or token sale found)"
+        measure: {source: none}
 
   - id: axiom
     name: Axiom
@@ -92,6 +142,42 @@ apps:
           verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 2400000}
     defillama: {slug: rabby}
     sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+    product:
+      what: "Browser/mobile EVM wallet: in-wallet swaps and bridges (fee per trade) plus Hyperliquid perps via a builder code."
+      who_pays: "Wallet users, per swap/bridge and per HL trade."
+      sources: ["https://api.llama.fi/summary/fees/rabby (childProtocols methodology)"]
+      mapped: 2026-10-17
+    product_lines:
+      - id: hl-perps
+        stream: builder-fees
+        product: "Hyperliquid core perps routed with the app's builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: perp}
+        crosscheck: {defillama_child: "Rabby Perps"}
+      - id: hl-hip3
+        stream: builder-fees
+        product: "Hyperliquid HIP-3 (builder-deployed perp dexes, dex:COIN)"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: hip3}
+        crosscheck: {maybe_in: "Rabby Perps", note: "DefiLlama perps children include HIP-3 for some apps, not others; the cross-check reports both"}
+      - id: hl-spot
+        stream: builder-fees
+        product: "Hyperliquid spot routed with the builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: spot}
+        crosscheck: {}
+      - id: hl-outcome
+        stream: builder-fees
+        product: "Hyperliquid HIP-4 outcome markets routed with the builder code"
+        chain: hyperliquid
+        measure: {source: hl-builder, asset_class: outcome}
+        crosscheck: {}
+      - id: wallet-swaps-bridges
+        stream: swap-fees
+        product: "In-wallet swaps and bridges across EVM chains"
+        chain: evm
+        identifiers: {note: "fee recipient contracts not mapped yet; discover by tracing a wallet swap"}
+        measure: {source: defillama, parent: rabby, child: "Rabby Wallet"}
 
   - id: hyperdash
     name: Hyperdash
@@ -167,6 +253,21 @@ apps:
     polymarket:
       builder_codes: ["0x6b0e773fada0a2ec67c956b25a737d353a534ea33db56c717ba7854346c67984"]
       verified: {at: 2026-10-17, method: [leaderboard]}
+    product:
+      what: "Polymarket trading frontend: routes orders to the Polymarket CLOB with its builder code and charges a builder fee."
+      who_pays: "Traders, per filled order (builder fee in USDC on top of Polymarket's own taker fee)."
+      sources: ["https://data-api.polymarket.com/v2/builders/leaderboard", "https://clob.polymarket.com/builder/trades"]
+      mapped: 2026-10-17
+    product_lines:
+      - id: pm-builder
+        stream: builder-fees
+        product: "Polymarket orders routed with the builder code"
+        chain: polygon
+        measure: {source: pm-builder}
+      - id: offchain
+        stream: other
+        product: "Any subscriptions or premium tools are off-chain and not visible"
+        measure: {source: none}
   - id: gate
     name: Gate
     category: exchange

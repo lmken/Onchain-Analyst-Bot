@@ -63,8 +63,8 @@ onchain price hyperliquid bitcoin
 
 ## Repo layout
 ```
-skills/      13 skills + manifest.json (onboarded into each bot)
-template/    getting-started skill, short versions of 6 core skills, profile/memory text
+skills/      14 skills + manifest.json (onboarded into each bot)
+template/    getting-started skill, short versions of 7 core skills, profile/memory text
 registry/    apps.yaml: app → HL builder addresses, Polymarket builder codes, DefiLlama slugs
 docs/        methodology.md, sources.md, snippets/ (stdlib scripts)
 src/onchain/ optional toolkit (`onchain` CLI)
