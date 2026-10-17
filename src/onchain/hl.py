@@ -11,7 +11,11 @@ import datetime as dt
 import io
 from collections import defaultdict
 
+import gzip
+import json
+
 from . import METHOD_VERSION, cache, http, sqd, timeutil
+from .metrics import asset_class
 
 INFO = "https://api.hyperliquid.xyz/info"
 FEED = "https://stats-data.hyperliquid.xyz/Mainnet/builder_fills/{addr}/{ymd}.csv.lz4"
@@ -100,6 +104,7 @@ class DayAgg:
         self.users = defaultdict(lambda: [0.0, 0.0, 0])   # user -> [volume, fee, fills]
         self.coins = defaultdict(float)
         self.coin_fees = defaultdict(float)
+        self.classes = {}   # asset class -> {fee, volume, taker_volume, fills, users:set, taker_users:set}
         self.hours = set()
 
     def add(self, user, coin, px, sz, crossed, fee, token, hour):
@@ -120,7 +125,20 @@ class DayAgg:
             self.coins[coin] += n
             if token in USD_TOKENS:
                 self.coin_fees[coin] += fee
+        c = self.classes.setdefault(asset_class(coin), {"fee": 0.0, "volume": 0.0, "taker_volume": 0.0,
+                                                        "fills": 0, "users": set(), "taker_users": set()})
+        c["fills"] += 1
+        c["volume"] += n
+        if token in USD_TOKENS:
+            c["fee"] += fee
+        c["users"].add(user)
+        if crossed:
+            c["taker_volume"] += n
+            c["taker_users"].add(user)
         self.hours.add(hour)
+
+    def classes_json(self):
+        return {k: dict(v, users=sorted(v["users"]), taker_users=sorted(v["taker_users"])) for k, v in self.classes.items()}
 
 
 def builder_day(addr: str, day: dt.date, *, gapfill: bool = True) -> dict:
@@ -166,19 +184,12 @@ def builder_day(addr: str, day: dt.date, *, gapfill: bool = True) -> dict:
     sqd_error = None
     if gapfill and gaps:
         try:
-            for g0, g1 in _merge(gaps):
-                b0 = sqd.block_at_or_after(g0)
-                b1 = sqd.block_at_or_after(g1) - 1
-                if b1 < b0:
-                    continue
-                for _, _, f in sqd.stream(b0, b1, builders=[addr]):
-                    t = int(f["time"])
-                    if not (g0 <= t < g1):
-                        continue
-                    hour = timeutil.ms_to_iso(t)[11:13]
-                    agg.add(f["user"], f.get("coin"), float(f["px"]), float(f["sz"]), bool(f.get("crossed")),
-                            float(f.get("builderFee") or 0), f.get("feeToken"), hour)
-                    sqd_rows += 1
+            merged = _merge(gaps)
+            for f in _sqd_gap_fills(addr, day, merged):
+                hour = timeutil.ms_to_iso(int(f["time"]))[11:13]
+                agg.add(f["user"], f.get("coin"), float(f["px"]), float(f["sz"]), bool(f.get("crossed")),
+                        float(f.get("builderFee") or 0), f.get("feeToken"), hour)
+                sqd_rows += 1
             status = "gapfilled" if rows else "missing_feed_sqd"
         except Exception as e:  # keep what we have, label it partial
             sqd_error = str(e)[:300]
@@ -190,7 +201,7 @@ def builder_day(addr: str, day: dt.date, *, gapfill: bool = True) -> dict:
         "hours_with_fills": len(agg.hours), "gap_hours": gap_hours,
         "fee_usd": agg.fee, "fee_other": dict(agg.fee_other),
         "volume": agg.volume, "taker_volume": agg.taker_volume, "fills": agg.fills,
-        "users": {u: v for u, v in agg.users.items()}, "coins": dict(agg.coins), "coin_fees": dict(agg.coin_fees),
+        "users": {u: v for u, v in agg.users.items()}, "coins": dict(agg.coins), "coin_fees": dict(agg.coin_fees), "classes": agg.classes_json(),
         "sources": ["hyperliquid builder_fills feed"] + (["SQD Portal hyperliquid-fills"] if sqd_rows else []),
         "method_version": METHOD_VERSION,
         "fetched_at": timeutil.utc_now().isoformat(timespec="seconds"),
@@ -207,3 +218,26 @@ def _merge(gaps):
         else:
             out.append((a, b))
     return out
+
+
+def _sqd_gap_fills(addr: str, day: dt.date, gaps: list[tuple[int, int]]) -> list[dict]:
+    """SQD fills inside `gaps`, cached raw per builder-day so recomputing metrics needs no network."""
+    p = cache.path("raw", "sqd_fills", addr, f"{day.isoformat()}.json.gz")
+    if p.exists():
+        try:
+            blob = json.loads(gzip.decompress(p.read_bytes()))
+            if blob.get("gaps") == [list(g) for g in gaps]:
+                return blob["fills"]
+        except (OSError, ValueError):
+            pass
+    fills = []
+    for g0, g1 in gaps:
+        b0 = sqd.block_at_or_after(g0)
+        b1 = sqd.block_at_or_after(g1) - 1
+        if b1 < b0:
+            continue
+        for _, _, f in sqd.stream(b0, b1, builders=[addr]):
+            if g0 <= int(f["time"]) < g1:
+                fills.append(f)
+    p.write_bytes(gzip.compress(json.dumps({"gaps": [list(g) for g in gaps], "fills": fills}).encode()))
+    return fills
