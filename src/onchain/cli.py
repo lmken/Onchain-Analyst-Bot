@@ -44,7 +44,7 @@ def _merge_days(days):
     by = {}
     for d in days:
         m = by.setdefault(d["day"], {"day": d["day"], "status": d["status"], "fee_usd": 0.0, "volume": 0.0,
-                                     "taker_volume": 0.0, "fills": 0, "users": {}, "coins": {}})
+                                     "taker_volume": 0.0, "fills": 0, "users": {}, "coins": {}, "coin_fees": {}})
         if d["status"] in ("partial", "missing"):
             m["status"] = d["status"]
         for k in ("fee_usd", "volume", "taker_volume", "fills"):
@@ -54,6 +54,8 @@ def _merge_days(days):
             x[0] += v[0]; x[1] += v[1]; x[2] += v[2]
         for c, v in d["coins"].items():
             m["coins"][c] = m["coins"].get(c, 0) + v
+        for c, v in d.get("coin_fees", {}).items():
+            m["coin_fees"][c] = m["coin_fees"].get(c, 0) + v
     return list(by.values())
 
 
@@ -203,12 +205,18 @@ def cmd_hl_reconcile(a):
     s = metrics.window_summary(days)
     rows = [{"check": "builder fills (feed + SQD gap-fill)", "revenue_usd": s["revenue_usd"],
              "volume_usd": s["volume_usd"], "traders": s["unique_traders"], "coverage": _coverage_label(s)}]
+    rc = s.get("revenue_by_class", {})
+    if rc:
+        rows.append({"check": "  of which core perps (excl. HIP-3/spot/outcome)", "revenue_usd": rc.get("perp", 0.0)})
+        rows.append({"check": "  of which HIP-3 (builder-deployed perps)", "revenue_usd": rc.get("hip3", 0.0)})
     perps = (app.get("defillama") or {}).get("perps")
     if perps:
         try:
             v = llama.window_total(perps, "fees", *window)
+            core = rc.get("perp") if rc else None
             rows.append({"check": f"DefiLlama {perps} dailyFees", "revenue_usd": v,
-                         "delta_vs_fills": f"{(s['revenue_usd'] - v) / v:+.1%}" if v else None})
+                         "delta_vs_fills": f"{(s['revenue_usd'] - v) / v:+.1%} all; "
+                                           + (f"{(core - v) / v:+.1%} core perps" if core is not None else "") if v else None})
         except Exception as e:
             rows.append({"check": f"DefiLlama {perps}", "revenue_usd": None, "delta_vs_fills": str(e)[:60]})
     lifetime = sum(float(hl.referral(x)["builderRewards"]) for x in addrs)

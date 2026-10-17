@@ -65,3 +65,10 @@ def test_pm_fee_edges():
 
 def test_asset_class():
     assert [metrics.asset_class(c) for c in ("BTC", "@107", "PURR/USDC", "xyz:GOOGL", "#12")] == ["perp", "spot", "spot", "hip3", "outcome"]
+
+
+def test_revenue_by_class():
+    d = day("2026-10-01", {"a": 1})
+    d["coin_fees"] = {"BTC": 6.0, "xyz:TSLA": 3.0, "@1": 1.0}
+    s = metrics.window_summary([d])
+    assert s["revenue_by_class"] == {"perp": 6.0, "hip3": 3.0, "spot": 1.0}

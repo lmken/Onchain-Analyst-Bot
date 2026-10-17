@@ -99,6 +99,7 @@ class DayAgg:
         self.fills = 0
         self.users = defaultdict(lambda: [0.0, 0.0, 0])   # user -> [volume, fee, fills]
         self.coins = defaultdict(float)
+        self.coin_fees = defaultdict(float)
         self.hours = set()
 
     def add(self, user, coin, px, sz, crossed, fee, token, hour):
@@ -117,6 +118,8 @@ class DayAgg:
         u[2] += 1
         if coin:
             self.coins[coin] += n
+            if token in USD_TOKENS:
+                self.coin_fees[coin] += fee
         self.hours.add(hour)
 
 
@@ -126,9 +129,8 @@ def builder_day(addr: str, day: dt.date, *, gapfill: bool = True) -> dict:
     cp = cache.path("days", addr, f"{day.isoformat()}.json")
     old_enough = (timeutil.last_complete_day() - day).days >= 2
     hit = cache.read_json(cp)
-    if hit and hit.get("status") == "complete" and hit.get("feed_hours", 24) < 24 \
-            and hit.get("feed_rows", 0) >= INTERNAL_GAP_MIN_ROWS:
-        hit = None  # written before internal-gap detection; recompute
+    if hit and hit.get("method_version") != METHOD_VERSION:
+        hit = None  # computed by an older method; recompute
     if hit and old_enough and (hit["status"] in ("complete", "gapfilled", "missing_feed_sqd")
                                or (hit["status"] == "partial" and not gapfill)):
         return hit
@@ -188,7 +190,7 @@ def builder_day(addr: str, day: dt.date, *, gapfill: bool = True) -> dict:
         "hours_with_fills": len(agg.hours), "gap_hours": gap_hours,
         "fee_usd": agg.fee, "fee_other": dict(agg.fee_other),
         "volume": agg.volume, "taker_volume": agg.taker_volume, "fills": agg.fills,
-        "users": {u: v for u, v in agg.users.items()}, "coins": dict(agg.coins),
+        "users": {u: v for u, v in agg.users.items()}, "coins": dict(agg.coins), "coin_fees": dict(agg.coin_fees),
         "sources": ["hyperliquid builder_fills feed"] + (["SQD Portal hyperliquid-fills"] if sqd_rows else []),
         "method_version": METHOD_VERSION,
         "fetched_at": timeutil.utc_now().isoformat(timespec="seconds"),

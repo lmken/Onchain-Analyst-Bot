@@ -27,6 +27,7 @@ def window_summary(day_aggs: list[dict]) -> dict:
     fills = 0
     users = defaultdict(float)
     coins = defaultdict(float)
+    rev_class = defaultdict(float)
     statuses = defaultdict(int)
     for d in day_aggs:
         fee += d["fee_usd"]
@@ -38,11 +39,13 @@ def window_summary(day_aggs: list[dict]) -> dict:
             users[u] += v[0]
         for c, v in d["coins"].items():
             coins[c] += v
+        for c, v in d.get("coin_fees", {}).items():
+            rev_class[asset_class(c)] += v
     n = len(users)
     return {
         "days": len(day_aggs), "status_counts": dict(statuses),
         "complete_days": statuses.get("complete", 0) + statuses.get("gapfilled", 0) + statuses.get("missing_feed_sqd", 0),
-        "revenue_usd": fee, "volume_usd": vol, "taker_volume_usd": tvol, "fills": fills,
+        "revenue_usd": fee, "revenue_by_class": dict(rev_class), "volume_usd": vol, "taker_volume_usd": tvol, "fills": fills,
         "unique_traders": n,
         "take_rate_bps": (fee / vol * 1e4) if vol else None,
         "revenue_per_trader": (fee / n) if n else None,
