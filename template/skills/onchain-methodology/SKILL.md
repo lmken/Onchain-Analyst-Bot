@@ -19,7 +19,7 @@ description: Use before reporting any on-chain metric (revenue, volume, traders,
    - Builder revenue = Σ `builderFee` from CLOB `/builder/trades`.
    - Taker fee = shares × rate × p × (1 − p).
 5. **DefiLlama:** fees ≠ revenue ≠ holders revenue. The latest day may be restated.
-6. **Verify:** compare HL builder revenue with DefiLlama `<app>-perps` for the same days, within about 10%.
+6. **Verify:** compare core-perps builder revenue (excluding HIP-3 `dex:COIN` fills) with DefiLlama `<app>-perps` for the same days, within about 10%.
 7. **Footer:** `Sources | Window (UTC, complete days) | Coverage N/N | Onchain Analyst version`.
 
 Full formulas (cohorts, concentration, PnL) are in the full version. Say "update skills" to get it.

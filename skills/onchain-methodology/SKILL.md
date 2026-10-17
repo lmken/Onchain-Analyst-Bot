@@ -42,7 +42,7 @@ Apply every rule here before you state a number. Full definitions and worked exa
 - A "registry cohort share" is a share among listed builders, not of all of Hyperliquid.
 
 ## Verify before answering
-- Cross-check headline builder revenue against DefiLlama `<app>-perps` (if listed) for the same UTC window, within about 10%.
+- Cross-check builder revenue against DefiLlama `<app>-perps` (if listed) for the same UTC window, within about 10%. Compare **core perps only**: DefiLlama's `-perps` excludes HIP-3 (`dex:COIN`) fills, which can be 10–15% of a builder's fees.
 - Check that lifetime totals don't exceed `referral.builderRewards`.
 - Explain any gap rather than hiding it.
 

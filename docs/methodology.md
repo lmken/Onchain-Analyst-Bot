@@ -74,6 +74,7 @@ Apps with several builder addresses are summed per day before any distinct count
 - Window totals are sums of `totalDataChart` values on complete UTC days. The latest day can be restated for about 24h.
 
 ## 6. Reconciliation (how we check ourselves)
-1. **Builder fills vs DefiLlama `<app>-perps`:** same UTC days, tolerance ±10%. DefiLlama's Hyperliquid builder adapter reads its own indexer (builder daily summaries, `hl-indexer.llama.rip`), so it's a largely independent check. A shortfall of about 40–50% usually means feed truncation wasn't filled.
+1. **Builder fills vs DefiLlama `<app>-perps`:** same UTC days, tolerance ±10%, comparing **core-perps revenue only**, because DefiLlama's `-perps` series excludes HIP-3 (`dex:COIN`) fills.
+   - Verified 2026-10-17 for one large builder over 30 days: core perps differed by −1.6%. All revenue including HIP-3 was +12.9% higher. DefiLlama's Hyperliquid builder adapter reads its own indexer (builder daily summaries, `hl-indexer.llama.rip`), so it's a largely independent check. A shortfall of about 40–50% usually means feed truncation wasn't filled.
 2. **Builder fills vs `builderRewards`:** the lifetime sum of fills since `first_seen` must be ≤ the lifetime rewards and close to them. Rewards update in batches.
 3. **Polymarket:** builder notional (USDC) vs leaderboard shares × average price, as a sanity check (±15%).
