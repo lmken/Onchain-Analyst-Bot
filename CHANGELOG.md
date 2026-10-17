@@ -1,5 +1,8 @@
 # Changelog
 
+## Unreleased (next: v0.1.2)
+- Fix: report files were sometimes delivered as a Markdown link to a `file://` or local path, which doesn't open in chat. `onchain-report` (v0.1.1) gains a "Delivering files" rule: attach every memo, CSV or chart in chat, never link a local path (mention it only as plain code text). `product-revenue-map` (full v0.1.1, short v0.1.1-short) points its file output to the same rule. Profile states it too.
+
 ## v0.1.1 (2026-10-17)
 - Weekly update check: every copy of the bot gets a read-only routine, "Check for skill updates" (Mondays ~9am, user's time zone). It tells the user when a newer release is out and offers to run `onchain-update-skills`. It never installs, overwrites or deletes skills without a yes in chat.
 - `onchain-update-skills` (full and short): new check-only mode for routines (steps 1–3, silent when up to date); applying changes still needs the user's yes in chat. Each run recreates the routine if it's missing.

@@ -4,8 +4,8 @@
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
     "skills": 15,
-    "full_template_bytes": 41645,
-    "core_template_bytes": 15175
+    "full_template_bytes": 42114,
+    "core_template_bytes": 15303
   },
   "skills": [
     {
@@ -74,11 +74,11 @@
       "slug": "onchain-report",
       "name": "onchain-report",
       "description": "Use when the user wants an on-chain analysis delivered as a CSV, a chart, or a short Markdown memo rather than a chat answer.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "extended",
       "path": "skills/onchain-report/SKILL.md",
-      "sha256": "4388371ddc4c64a54f9d5968e84e5db5bb534e7731a06ab1ac48aa1f6a442824",
-      "bytes": 1595
+      "sha256": "19804e01e0203c1da8049588df4937e218a4f9ec759fce9c060973976a44dfd9",
+      "bytes": 1895
     },
     {
       "slug": "onchain-setup-toolkit",
@@ -162,16 +162,16 @@
       "slug": "product-revenue-map",
       "name": "product-revenue-map",
       "description": "Use when asked how much any on-chain app, wallet, frontend or protocol makes (revenue, fees, volume, users) across all its products and chains. Maps the business model to on-chain footprints, measures each line once, rolls up with dedupe rules and cross-checks aggregators.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/product-revenue-map/SKILL.md",
-      "sha256": "fe9c6f38531e6872f344d4bdd62a42c9739f1757955de076a57aa0f51ea0fd3e",
-      "bytes": 4636,
+      "sha256": "ac1fcff736a5f92290771a8d37c8ae596b4f2ea988db2a945e91748c6bc45f4c",
+      "bytes": 4805,
       "short": {
         "path": "template/skills/product-revenue-map/SKILL.md",
-        "version": "0.1.0-short",
-        "sha256": "d66acc41011842410481c04cd3e9076326c350ad1c17daed2b40f11d7551ad3e",
-        "bytes": 1703
+        "version": "0.1.1-short",
+        "sha256": "2767aec64b0001a51270362f245130193df8d4c99ef6ae46318bccecc5122560",
+        "bytes": 1831
       }
     },
     {

@@ -17,4 +17,6 @@ Short version. Run onchain-update-skills to get the full one.
 
 Toolkit: `onchain app <name> --window 30d`.
 
-Skill version: product-revenue-map v0.1.0-short (Onchain Analyst)
+Deliver any report or CSV as a chat attachment. Never link a `file://` URL or local path: those links don't open for the user.
+
+Skill version: product-revenue-map v0.1.1-short (Onchain Analyst)

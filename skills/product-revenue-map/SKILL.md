@@ -65,9 +65,11 @@ One row per line: stream, chain, fees, revenue, taker volume, users, source, cov
 - a list of what isn't visible
 - a cross-check table
 
+If you also write a report or CSV, deliver it as a chat attachment (see onchain-report). Never link a `file://` URL or local path: those links don't open for the user.
+
 ## Pitfalls
 - An aggregator's "app" figure may cover only one product. Ask what is missing before trusting it.
 - Cross-chain fees are often booked on one chain. Don't re-add them per chain.
 - Fresh days get restated. Use complete UTC days at least a day old.
 
-Skill version: product-revenue-map v0.1.0 (Onchain Analyst)
+Skill version: product-revenue-map v0.1.1 (Onchain Analyst)
