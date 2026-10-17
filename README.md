@@ -35,7 +35,7 @@ Every number comes with its **sources** and a **coverage** label. The bot is rea
 ## Install the optional toolkit by hand
 ```bash
 python3 -m venv ~/.onchain/venv
-~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.0"
+~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.1"
 ~/.onchain/venv/bin/onchain setup && ~/.onchain/venv/bin/onchain doctor --live
 ```
 Some examples:

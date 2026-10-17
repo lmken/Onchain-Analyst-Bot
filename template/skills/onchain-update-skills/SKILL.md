@@ -4,7 +4,9 @@ description: Use when the user asks to update, check or repair the Onchain Analy
 ---
 # Update Onchain Analyst skills (starter)
 
-Run only when the user asks.
+- **Check only** (weekly routine "Check for skill updates"): steps 1–3 only. Up to date → stay silent. Otherwise say in one or two sentences what's new (CHANGELOG) and offer the update. Never change skills from a routine.
+- **Update:** the user asks in chat or says yes. Steps 4–8 only after a yes in chat.
+- Every run: if that routine is missing, create it per onchain-getting-started and tell the user.
 
 1. **Read** the memory `onchain-skills-manifest` (`repo`, `tag`, `REPO_RAW`, skill ids and versions). If it's missing, use the values in onchain-getting-started.
 2. **Find the newest tag:** `curl -s https://api.github.com/repos/{REPO}/releases/latest`. If there's no release, use `/tags`.
@@ -25,4 +27,4 @@ Run only when the user asks.
    - removed → ask separately before `delete`, because deletion is global
 8. **Record:** update the memory record (tag, versions, ids, sha256, date).
 
-Skill version: onchain-update-skills v0.1.0-short (Onchain Analyst)
+Skill version: onchain-update-skills v0.1.1-short (Onchain Analyst)

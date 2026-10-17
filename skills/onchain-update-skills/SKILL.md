@@ -4,7 +4,11 @@ description: Use when the user asks to update, check or repair the Onchain Analy
 ---
 # Update Onchain Analyst skills
 
-This only runs when the user asks. Never run it from a routine.
+Two modes:
+- **Check only** (from the weekly routine "Check for skill updates"): do steps 1–3 only. If up to date, stay silent. Otherwise tell the user in one or two sentences what's new (from that tag's CHANGELOG) and offer to run this skill. Never install, overwrite or delete anything from a routine.
+- **Update** (the user asks in chat, or says yes to the offer): do every step. Steps 4–8 change skills only after the user says yes in chat.
+
+Every run, first make sure the routine "Check for skill updates" exists. If it's missing, create it as described in onchain-getting-started ("Keep the weekly update check") and tell the user.
 
 ## 1. Read the install record
 - Read the memory `onchain-skills-manifest` for `repo`, `tag`, `template_mode`, and per skill `{slug, id, version, installed_sha256}`.
@@ -17,7 +21,8 @@ curl -s https://api.github.com/repos/{REPO}/releases/latest | python3 -c "import
 If there's no release, use `https://api.github.com/repos/{REPO}/tags`. Unauthenticated GitHub API calls are limited to 60/hour; raw file downloads are not.
 
 ## 3. Compare
-- **Up to date:** the tag isn't newer **and** no skill is `-short` or missing. Say so and stop.
+- **Up to date:** the tag isn't newer **and** no skill is `-short` or missing. Say so and stop (check-only mode: stay silent).
+- **Check-only mode, not up to date:** fetch `{REPO_RAW}/<new_tag>/CHANGELOG.md`, notify the user, offer the update and stop here.
 - **Otherwise:** fetch `{REPO_RAW}/<new_tag>/skills/manifest.json` and `{REPO_RAW}/<new_tag>/CHANGELOG.md`.
 
 ## 4. Classify each skill
@@ -47,4 +52,4 @@ Show a table (skill, change, size, summary) and ask: update all / pick / none. R
 - Update the memory `onchain-skills-manifest` (tag, versions, ids, sha256, source: repo, date).
 - If the memory says `toolkit: installed`, offer `~/.onchain/venv/bin/pip install --upgrade "git+https://github.com/{REPO}@<new_tag>"`.
 
-Skill version: onchain-update-skills v0.1.0 (Onchain Analyst)
+Skill version: onchain-update-skills v0.1.1 (Onchain Analyst)

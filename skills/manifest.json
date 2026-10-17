@@ -1,11 +1,11 @@
 {
-  "release": "v0.1.0",
+  "release": "v0.1.1",
   "template_mode": "full",
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
     "skills": 15,
-    "full_template_bytes": 39906,
-    "core_template_bytes": 13794
+    "full_template_bytes": 41645,
+    "core_template_bytes": 15175
   },
   "skills": [
     {
@@ -110,16 +110,16 @@
       "slug": "onchain-update-skills",
       "name": "onchain-update-skills",
       "description": "Use when the user asks to update, check or repair the Onchain Analyst skills or toolkit, or mentions a newer release; also use when a short starter skill should be upgraded to its full version.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/onchain-update-skills/SKILL.md",
-      "sha256": "3cce1c25f21d428d5c7d4e7ea2a6cda515db9d0fe97ad4502f9bc074ddc22434",
-      "bytes": 2915,
+      "sha256": "a69e459d6ef3f085f723771bac544981929fd19e0d6c4d7f243dbad310731db8",
+      "bytes": 3655,
       "short": {
         "path": "template/skills/onchain-update-skills/SKILL.md",
-        "version": "0.1.0-short",
-        "sha256": "b61ca2002a20e8f1c6fe6bff381fbc406ec382b924b927136df95b0971e90dca",
-        "bytes": 1558
+        "version": "0.1.1-short",
+        "sha256": "f6904137839b8f37a7c34dbbbd5e6dbeb898aa773fd77fee0a18625bcb75fcdc",
+        "bytes": 1940
       }
     },
     {
@@ -194,11 +194,11 @@
       "slug": "onchain-getting-started",
       "name": "onchain-getting-started",
       "description": "Use on the first conversation after this bot is added, or when Onchain Analyst skills are missing, outdated or short starter versions.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "onboarding",
       "path": "template/getting-started/SKILL.md",
-      "sha256": "90db72caa3c2aeca7506444647db861418dd6c6b76840c419dd577bd842c63a8",
-      "bytes": 3361
+      "sha256": "8001b2448a6a9f59688c59eb4e38ebacd8176a243f4dd9fe28b74b68cd69d1ea",
+      "bytes": 4360
     }
   ]
 }
