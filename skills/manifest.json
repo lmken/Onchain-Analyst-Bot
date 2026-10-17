@@ -1,0 +1,188 @@
+{
+  "release": "v0.1.0",
+  "template_mode": "full",
+  "repo": "lmken/Onchain-Analyst-Bot",
+  "totals": {
+    "skills": 14,
+    "full_template_bytes": 34437,
+    "core_template_bytes": 11877
+  },
+  "skills": [
+    {
+      "slug": "app-compare",
+      "name": "app-compare",
+      "description": "Use for side-by-side comparisons of apps or frontends (\"A vs B vs C\") or a one-page app snapshot across Hyperliquid builder data, Polymarket builder data and DefiLlama fees.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/app-compare/SKILL.md",
+      "sha256": "a209631fc69cf25d686d1034375499347b496c0e0721222a55f0dce5afcf8f5b",
+      "bytes": 1694
+    },
+    {
+      "slug": "app-registry",
+      "name": "app-registry",
+      "description": "Use to look up, add or verify which Hyperliquid builder addresses, Polymarket builder codes or DefiLlama slugs belong to an app, wallet or trading frontend.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/app-registry/SKILL.md",
+      "sha256": "c2d055f78c1a83676253aa1c8e90b853c120a6d26792d1ce0d32d53bfe5797d4",
+      "bytes": 2274
+    },
+    {
+      "slug": "hyperliquid-builders",
+      "name": "hyperliquid-builders",
+      "description": "Use for Hyperliquid builder codes and the frontends behind them (wallets, trading apps, terminals) \u2014 builder revenue, volume, unique traders, take rate, retention, whale concentration, rankings or comparisons.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/hyperliquid-builders/SKILL.md",
+      "sha256": "914592fe0cda8826d3710b4924fa67fc7529f91c12a45e6664de93b1a4cbc4c0",
+      "bytes": 3915,
+      "short": {
+        "path": "template/skills/hyperliquid-builders/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "11c6810664f9d64f45b2b0a5ec81d8b39b75707a1eae7ca872615f4aa92c4c45",
+        "bytes": 1502
+      }
+    },
+    {
+      "slug": "hyperliquid-trader",
+      "name": "hyperliquid-trader",
+      "description": "Use when asked about a specific Hyperliquid address \u2014 open positions, account value, recent fills, realized PnL net of fees, fee tier, or which frontends (builder codes) it trades through.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/hyperliquid-trader/SKILL.md",
+      "sha256": "73cd1a6d66c31bc51836d33f38e7d9c408695a71751aab34c288a0e8bcb3c1aa",
+      "bytes": 2089
+    },
+    {
+      "slug": "onchain-methodology",
+      "name": "onchain-methodology",
+      "description": "Use before reporting any on-chain metric (revenue, volume, traders, retention, PnL, fees), or when asked how a number was computed or whether it can be trusted.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/onchain-methodology/SKILL.md",
+      "sha256": "9844555824ec60f9be2aa3b1ab5a363246ece5e8c11a1c03dd4826e746b0eaf8",
+      "bytes": 3528,
+      "short": {
+        "path": "template/skills/onchain-methodology/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "494ed18d0a7c3ec13895e9733f0808555074799be5eefbee25d7b9f429f4bbc9",
+        "bytes": 1629
+      }
+    },
+    {
+      "slug": "onchain-report",
+      "name": "onchain-report",
+      "description": "Use when the user wants an on-chain analysis delivered as a CSV, a chart, or a short Markdown memo rather than a chat answer.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/onchain-report/SKILL.md",
+      "sha256": "4388371ddc4c64a54f9d5968e84e5db5bb534e7731a06ab1ac48aa1f6a442824",
+      "bytes": 1595
+    },
+    {
+      "slug": "onchain-setup-toolkit",
+      "name": "onchain-setup-toolkit",
+      "description": "Use when the optional onchain toolkit is missing, outdated or failing, or the user wants faster, cached analysis; skills still work without it.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/onchain-setup-toolkit/SKILL.md",
+      "sha256": "94ff0ed45f3a88f3df0ac3bae7ac77d85009bfceca214007e7b634537c9d0632",
+      "bytes": 1681
+    },
+    {
+      "slug": "onchain-source-map",
+      "name": "onchain-source-map",
+      "description": "Use before answering any on-chain, Hyperliquid, Polymarket or protocol-fee question, to pick the right free public source and respect its limits.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/onchain-source-map/SKILL.md",
+      "sha256": "b2419c2660e6d00ae05f5595e572034c011c3b5ed1c817904f9bfc373ddfaf6e",
+      "bytes": 3627,
+      "short": {
+        "path": "template/skills/onchain-source-map/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "674ea7db845b060493ba6e57087c85b4eaf86847b1ad719463f263a9d8942307",
+        "bytes": 1681
+      }
+    },
+    {
+      "slug": "onchain-update-skills",
+      "name": "onchain-update-skills",
+      "description": "Use when the user asks to update, check or repair the Onchain Analyst skills or toolkit, or mentions a newer release; also use when a short starter skill should be upgraded to its full version.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/onchain-update-skills/SKILL.md",
+      "sha256": "3cce1c25f21d428d5c7d4e7ea2a6cda515db9d0fe97ad4502f9bc074ddc22434",
+      "bytes": 2915,
+      "short": {
+        "path": "template/skills/onchain-update-skills/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "b61ca2002a20e8f1c6fe6bff381fbc406ec382b924b927136df95b0971e90dca",
+        "bytes": 1558
+      }
+    },
+    {
+      "slug": "polymarket-builders",
+      "name": "polymarket-builders",
+      "description": "Use for Polymarket builder codes (apps that route orders to Polymarket) \u2014 rankings by volume, active makers, builder-fee revenue, notional and take rate over a day, week or month.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/polymarket-builders/SKILL.md",
+      "sha256": "3d73c063195b132a8c2e1e96b1c07be8eb05f5e9c98aa1788830e6b4d41d4f1c",
+      "bytes": 1847,
+      "short": {
+        "path": "template/skills/polymarket-builders/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "d2c42992582b20e00d4bb26c63420541bdb24aa71cddf6ecb2d14cc28dc2ab15",
+        "bytes": 1149
+      }
+    },
+    {
+      "slug": "polymarket-markets",
+      "name": "polymarket-markets",
+      "description": "Use for finding Polymarket markets or events and their prices, price history, order book, liquidity, open interest, top holders or recent trades.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/polymarket-markets/SKILL.md",
+      "sha256": "4e21a8be98f88b27deec623d60c481e69578707589dd10db131150060e4b2e9d",
+      "bytes": 2106
+    },
+    {
+      "slug": "polymarket-wallets",
+      "name": "polymarket-wallets",
+      "description": "Use when asked about a Polymarket wallet or trader \u2014 open and closed positions, realized/unrealized PnL, PnL over time, biggest wins, volume, or recent activity.",
+      "version": "0.1.0",
+      "tier": "extended",
+      "path": "skills/polymarket-wallets/SKILL.md",
+      "sha256": "4a4b5f37f34d9109520a0076669a90371ffe6ecd36a1744c6b20bc996f1d6b20",
+      "bytes": 1751
+    },
+    {
+      "slug": "protocol-fees",
+      "name": "protocol-fees",
+      "description": "Use for a protocol's or app's fees, revenue or holders revenue over time, fee rankings across protocols, or current token prices.",
+      "version": "0.1.0",
+      "tier": "core",
+      "path": "skills/protocol-fees/SKILL.md",
+      "sha256": "5570a95a7de2e658caf2784dcd5516056dfcf1c71b1caf30282bb689a6dfa24d",
+      "bytes": 2054,
+      "short": {
+        "path": "template/skills/protocol-fees/SKILL.md",
+        "version": "0.1.0-short",
+        "sha256": "1327c7c4f0a5e056e589365e75eb48703b12fe2989966565ddd7075c9df52d7a",
+        "bytes": 997
+      }
+    },
+    {
+      "slug": "onchain-getting-started",
+      "name": "onchain-getting-started",
+      "description": "Use on the first conversation after this bot is added, or when Onchain Analyst skills are missing, outdated or short starter versions.",
+      "version": "0.1.0",
+      "tier": "onboarding",
+      "path": "template/getting-started/SKILL.md",
+      "sha256": "90db72caa3c2aeca7506444647db861418dd6c6b76840c419dd577bd842c63a8",
+      "bytes": 3361
+    }
+  ]
+}

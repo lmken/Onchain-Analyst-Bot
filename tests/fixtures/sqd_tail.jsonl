@@ -1,0 +1,4 @@
+{"header":{"number":100,"timestamp":1760530243000}}
+{"header":{"number":101,"timestamp":1760530243500},"fills":[{"user":"0xddd","coin":"@107","px":40,"sz":25,"time":1760530243500,"crossed":true,"builderFee":0.1,"feeToken":"USDC"}]}
+{"header":{"number":150,"timestamp":1760572800000},"fills":[{"user":"0xeee","coin":"SOL","px":200,"sz":5,"time":1760572800000,"crossed":true,"builderFee":0.3,"feeToken":"USDC"},{"user":"0xaaa","coin":"BTC","px":100000,"sz":0.02,"time":1760572801000,"crossed":true,"builderFee":1.0,"feeToken":"USDC"},{"user":"0xfff","coin":"HYPE","px":40,"sz":10,"time":1760572802000,"crossed":false,"builderFee":0.2,"feeToken":"HYPE"}]}
+{"header":{"number":200,"timestamp":1760572900000}}

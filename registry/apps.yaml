@@ -1,0 +1,181 @@
+# Onchain Analyst app registry.
+# Each entry maps an app to its public on-chain identifiers.
+#   verified.method: referral  = HL info `referral.builderRewards` > 0
+#                    feed      = a builder_fills day file exists
+#                    leaderboard = listed on the Polymarket builders leaderboard
+#                    llama     = DefiLlama /summary/fees/{slug} returns 200
+# Addresses are lowercase. Lifetime figures are snapshots, not live values.
+version: 1
+apps:
+  - id: phantom
+    name: Phantom
+    category: wallet
+    hyperliquid:
+      builders:
+        - address: "0xb84168cf3be63c6b8dad05ff5d755e97432ff80b"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 27390000}
+    defillama: {slug: phantom, perps: phantom-perps}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: based-app
+    name: based.app
+    category: trading-app
+    hyperliquid:
+      builders:
+        - address: "0x1924b8561eef20e70ede628a296175d358be80e5"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 15430000}
+    defillama: {slug: based-app}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: metamask
+    name: MetaMask
+    category: wallet
+    hyperliquid:
+      builders:
+        - address: "0xe95a5e31904e005066614247d309e00d8ad753aa"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 12330000}
+    defillama: {slug: metamask, perps: metamask-perps}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: pvp-trade
+    name: pvp.trade
+    category: trading-app
+    hyperliquid:
+      builders:
+        - address: "0x0cbf655b0d22ae71fba3a674b0e1c0c7e7f975af"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 8070000}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: trust-wallet
+    name: Trust Wallet
+    category: wallet
+    hyperliquid:
+      builders:
+        - address: "0x5af1b5f44207784dcb850bbb4143c5dcd1885f71"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 3760000}
+    defillama: {slug: trust-wallet}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: fomo
+    name: FOMO
+    category: trading-app
+    notes: "Two builder addresses; the default view sums both."
+    hyperliquid:
+      builders:
+        - address: "0x2a2b6b093a9813fbd8cddae800c3d17d46460d17"
+          label: social-trading
+          first_seen: 2026-06-05
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 2904113}
+        - address: "0xb838e4d1c8bcf71fa8e63299d5aa3258c83d6adb"
+          label: legacy
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 110000}
+    defillama: {slug: fomo, perps: fomo-perps}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: axiom
+    name: Axiom
+    category: trading-app
+    hyperliquid:
+      builders:
+        - address: "0x1cc34f6af34653c515b47a83e1de70ba9b0cda1f"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 2460000}
+    defillama: {slug: axiom, perps: axiom-perps}
+    solana: {programs: ["FLASHX8DrLbgeR8FcfNV1F5krxYcYMUdBkrP1EPBtxB9"]}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: rabby
+    name: Rabby
+    category: wallet
+    hyperliquid:
+      builders:
+        - address: "0xad9be64fd7a35d99a138b87cb212baefbcdcf045"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 2400000}
+    defillama: {slug: rabby}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: hyperdash
+    name: Hyperdash
+    category: terminal
+    hyperliquid:
+      builders:
+        - address: "0xe966a12bf7b93838096e4519a684519ab22df618"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 1200000}
+    defillama: {slug: hyperdash}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  - id: dexari
+    name: Dexari
+    category: trading-app
+    hyperliquid:
+      builders:
+        - address: "0x7975cafdff839ed5047244ed3a0dd82a89866081"
+          verified: {at: 2026-10-17, method: [referral, feed], lifetime_rewards_usd: 663348}
+    defillama: {slug: dexari}
+    sources: ["https://github.com/DefiLlama/dimension-adapters/blob/master/factory/hyperliquid.ts"]
+
+  # --- Unverified seeds: run `registry verify` (or the app-registry skill) before relying on them ---
+  - id: okto
+    name: Okto
+    category: wallet
+    hyperliquid:
+      builders:
+        - {address: "0x05984fd37db96dc2a11a09519a8def556e80590b", verified: false}
+        - {address: "0x4fe1141b9066f3777f4bd4d4ac9d216173031dc1", verified: false}
+  - id: bitget-wallet
+    name: Bitget Wallet
+    category: wallet
+    hyperliquid:
+      builders:
+        - {address: "0xdf39721d2c4fc0fedc92c68e3879ba594bb64750", verified: false}
+  - id: nansen
+    name: Nansen
+    category: terminal
+    hyperliquid:
+      builders:
+        - {address: "0x93053f1e7a5efeda532fe69cbbe43cbec3a0f13f", verified: false}
+  - id: zerion
+    name: Zerion
+    category: wallet
+    hyperliquid:
+      builders:
+        - {address: "0x0101fe18daad2b57359d89358a4cf069c7870162", verified: false}
+
+  # --- Polymarket ---
+  - id: polymarket
+    name: Polymarket
+    category: prediction-market
+    defillama: {slug: polymarket}
+    polygon:
+      chain_id: 137
+      contracts:
+        v2_position_manager: "0x006F54F7f9A22e0000CC2AB60031000000ae9fEF"
+        v2_router: "0x12121212006e4CD160D18e3f00711DA5c3372600"
+        v2_exchange_v3: "0xe3333700cA9d93003F00f0F71f8515005F6c00Aa"
+        v1_ctf: "0x4D97DCd97eC945f40cF65F87097ACe5EA0476045"
+        v1_fee_module: "0xE3f18aCc55091e2c48d883fc8C8413319d4Ab7b0"
+        neg_risk_fee_module: "0xB768891e3130F6dF18214Ac804d4DB76c2C37730"
+        neg_risk_ctf: "0xd91E80cF2E7be2e162c6513ceD06f1dD0dA35296"
+  - id: betmoar
+    name: betmoar
+    category: trading-app
+    polymarket:
+      builder_codes: ["0xceebf77a833b30520287ddd9478ff51abbdffa30aa90a8d655dba0e8a79ce0c1"]
+      verified: {at: 2026-10-17, method: [leaderboard]}
+  - id: traderline
+    name: traderline
+    category: trading-app
+    polymarket:
+      builder_codes: ["0x6b0e773fada0a2ec67c956b25a737d353a534ea33db56c717ba7854346c67984"]
+      verified: {at: 2026-10-17, method: [leaderboard]}
+  - id: gate
+    name: Gate
+    category: exchange
+    polymarket:
+      builder_codes: ["0x2c6624a23b16a2a69acd14c87b7fc03906870c851fa0a7b7f9d7be0fbbedea8a"]
+      verified: {at: 2026-10-17, method: [leaderboard]}
+
+  # --- Protocol-level (DefiLlama only) ---
+  - id: hyperliquid
+    name: Hyperliquid
+    category: protocol
+    defillama: {slug: hyperliquid}

@@ -1,0 +1,2 @@
+- Onchain Analyst skills and the optional toolkit come from the public repo https://github.com/lmken/Onchain-Analyst-Bot at a pinned release tag. The install record lives in the memory `onchain-skills-manifest`, and "update skills" refreshes it.
+- No custom MCP servers are needed. All data sources are public HTTP endpoints, listed in the onchain-source-map skill.
