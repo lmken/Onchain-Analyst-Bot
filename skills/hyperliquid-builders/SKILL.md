@@ -59,7 +59,7 @@ python3 -c "import lz4.frame;open('d.csv','wb').write(lz4.frame.decompress(open(
 - Compare with the previous equal window when useful.
 
 ## 5. Verify
-- DefiLlama `https://api.llama.fi/summary/fees/<app>-perps?dataType=dailyFees` (if the registry lists `defillama.perps`) for the same UTC days should agree within about 10% **on core-perps revenue**. DefiLlama's `-perps` series excludes HIP-3 (`dex:COIN`) fills, so split revenue by asset class before comparing.
+- DefiLlama `https://api.llama.fi/summary/fees/<app>-perps?dataType=dailyFees` (if the registry lists `defillama.perps`) for the same UTC days includes HIP-3 (`dex:COIN`) fills. Compare **day by day**: matching days agree within about 1%. DefiLlama's own indexer misses data on some days, which shows up as DefiLlama 10–40% lower. Report the number of matching days and the gap; a window total alone can hide offsetting errors.
 - The sum since `first_seen` must be ≤ `builderRewards`.
 - If either check fails, say so and show both numbers.
 

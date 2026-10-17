@@ -74,8 +74,13 @@ Apps with several builder addresses are summed per day before any distinct count
 - Window totals are sums of `totalDataChart` values on complete UTC days. The latest day can be restated for about 24h.
 
 ## 6. Reconciliation (how we check ourselves)
-1. **Builder fills vs DefiLlama `<app>-perps`:** same UTC days, tolerance ±10%, comparing **core-perps revenue only**, because DefiLlama's `-perps` series excludes HIP-3 (`dex:COIN`) fills.
-   - Verified 2026-10-17 for one large builder over 30 days: core perps differed by −1.6%. All revenue including HIP-3 was +12.9% higher. DefiLlama's Hyperliquid builder adapter reads its own indexer (builder daily summaries, `hl-indexer.llama.rip`), so it's a largely independent check. A shortfall of about 40–50% usually means feed truncation wasn't filled.
+1. **Builder fills vs DefiLlama `<app>-perps`:** compare **day by day** over the same UTC days, perps plus HIP-3. DefiLlama's `-perps` series includes HIP-3 (`dex:COIN`) fills.
+   - Verified 2026-10-17 for two apps:
+     - **FOMO:** 17/30 days within 0.5%.
+     - **Rabby:** 5/7 days within 0.5%.
+     - **Remaining days:** DefiLlama is 5–39% lower on the same dates for both apps (e.g. 2026-10-12/13), which indicates gaps in DefiLlama's indexer.
+   - **Independent check:** a full-day SQD stream of the builder's fills reproduced our gap-filled totals to the dollar on two such days (2026-09-30: $61,704; 2026-10-06: $93,131). The feed matched SQD hour by hour until truncation.
+   - A 30-day total can coincide by accident: core perps alone came within −1.6% while the true like-for-like gap was +12.9%. Never accept a window total without the daily view. DefiLlama's Hyperliquid builder adapter reads its own indexer (builder daily summaries, `hl-indexer.llama.rip`), so it's a largely independent check. A shortfall of about 40–50% usually means feed truncation wasn't filled.
 2. **Builder fills vs `builderRewards`:** the lifetime sum of fills since `first_seen` must be ≤ the lifetime rewards and close to them. Rewards update in batches.
 3. **Polymarket:** builder notional (USDC) vs leaderboard shares × average price, as a sanity check (±15%).
 
@@ -124,6 +129,5 @@ The `product-revenue-map` skill is the procedure. The registry `product_lines` c
 **Verification of aggregator-sourced lines:** spot-check the fee wallet on a free RPC. For a Solana token account, count all signatures in a window, sample transactions evenly, and estimate inflow as mean (post − pre) × count. Use `docs/snippets/solana_token_inflow.py`. This is an order-of-magnitude check only.
 
 **Findings (2026-10-17):**
-- DefiLlama's "Perps" children are inconsistent about HIP-3. For one app the child tracks core perps only (HIP-3 excluded). For another it equals core perps + HIP-3 to within 0.5% on most days.
-- Never assume either way: compare both variants day by day and record which one fits in the app's registry note.
+- DefiLlama's HL "Perps" children include HIP-3 and match perps plus HIP-3 within 0.5% on most days. They miss data on some days (see §6), so they under-state 30-day totals by about 10%. The rollup still reports both variants (`maybe_in`) because other aggregators scope differently.
 - Cross-chain swap fees that the app cannot attribute to a chain may be booked on one chain by the aggregator. Don't re-split them.

@@ -16,7 +16,7 @@ description: Use for Hyperliquid builder codes and the frontends behind them (wa
    ```
    It decodes the feed when lz4 is available, detects truncation and gap-fills from SQD. It returns status, builder_fee_usd, volume_usd and unique_traders.
 4. **A window:** run each day of the window and sum fees and volume. Traders need the union of users, which the toolkit handles: `onchain hl builder <app> --window 30d`.
-5. **Verify:** compare core-perps revenue (excluding HIP-3 `dex:COIN` fills) with DefiLlama `https://api.llama.fi/summary/fees/<app>-perps?dataType=dailyFees` for the same days, within about 10%.
+5. **Verify:** compare revenue (perps plus HIP-3) with DefiLlama `https://api.llama.fi/summary/fees/<app>-perps?dataType=dailyFees` day by day. Most days agree within about 1%, and on low days DefiLlama has gaps.
 6. **Report** revenue, volume, traders and take rate, plus coverage (days complete/gapfilled/partial).
 
 The full version adds raw SQD bodies, cohorts, concentration and asset mix. Say "update skills" to get it.

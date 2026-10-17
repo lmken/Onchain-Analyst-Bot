@@ -214,9 +214,25 @@ def cmd_hl_reconcile(a):
         try:
             v = llama.window_total(perps, "fees", *window)
             core = rc.get("perp") if rc else None
-            rows.append({"check": f"DefiLlama {perps} dailyFees", "revenue_usd": v,
-                         "delta_vs_fills": f"{(s['revenue_usd'] - v) / v:+.1%} all; "
-                                           + (f"{(core - v) / v:+.1%} core perps" if core is not None else "") if v else None})
+            ph = (rc.get("perp", 0.0) + rc.get("hip3", 0.0)) if rc else s["revenue_usd"]
+            rows.append({"check": f"DefiLlama {perps} dailyFees (includes HIP-3)", "revenue_usd": v,
+                         "delta_vs_fills": f"{(ph - v) / v:+.1%} perps+HIP-3; "
+                                           + (f"{(core - v) / v:+.1%} core only" if core is not None else "") if v else None})
+            # Day-level view: window totals can agree by accident.
+            ll = dict(llama.series(perps, "fees", *window))
+            ok, low = 0, []
+            for d in days:
+                day = dt.date.fromisoformat(d["day"])
+                ours = sum(x for c, x in d.get("coin_fees", {}).items() if metrics.asset_class(c) in ("perp", "hip3"))
+                theirs = ll.get(day)
+                if theirs is None or not ours:
+                    continue
+                if abs(theirs - ours) / ours <= 0.02:
+                    ok += 1
+                else:
+                    low.append(f"{day:%m-%d} {(theirs - ours) / ours:+.0%}")
+            rows.append({"check": f"  day-level: {ok}/{ok + len(low)} days within 2%", "revenue_usd": None,
+                         "delta_vs_fills": ("off days: " + ", ".join(low[:12]) + (" …" if len(low) > 12 else "")) if low else "all days match"})
         except Exception as e:
             rows.append({"check": f"DefiLlama {perps}", "revenue_usd": None, "delta_vs_fills": str(e)[:60]})
     lifetime = sum(float(hl.referral(x)["builderRewards"]) for x in addrs)

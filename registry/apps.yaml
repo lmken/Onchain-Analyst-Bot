@@ -88,7 +88,7 @@ apps:
         product: "Hyperliquid HIP-3 (builder-deployed perp dexes, dex:COIN)"
         chain: hyperliquid
         measure: {source: hl-builder, asset_class: hip3}
-        crosscheck: {maybe_in: "fomo Perps", note: "DefiLlama perps children include HIP-3 for some apps, not others; the cross-check reports both"}
+        crosscheck: {maybe_in: "fomo Perps", note: "DefiLlama HL perps children include HIP-3 (day-level match 2026-10-17); it has missing days"}
       - id: hl-spot
         stream: builder-fees
         product: "Hyperliquid spot routed with the builder code"
@@ -159,7 +159,7 @@ apps:
         product: "Hyperliquid HIP-3 (builder-deployed perp dexes, dex:COIN)"
         chain: hyperliquid
         measure: {source: hl-builder, asset_class: hip3}
-        crosscheck: {maybe_in: "Rabby Perps", note: "DefiLlama perps children include HIP-3 for some apps, not others; the cross-check reports both"}
+        crosscheck: {maybe_in: "Rabby Perps", note: "DefiLlama HL perps children include HIP-3 (day-level match 2026-10-17); it has missing days"}
       - id: hl-spot
         stream: builder-fees
         product: "Hyperliquid spot routed with the builder code"

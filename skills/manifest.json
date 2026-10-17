@@ -4,8 +4,8 @@
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
     "skills": 15,
-    "full_template_bytes": 39693,
-    "core_template_bytes": 13742
+    "full_template_bytes": 39906,
+    "core_template_bytes": 13794
   },
   "skills": [
     {
@@ -35,13 +35,13 @@
       "version": "0.1.0",
       "tier": "core",
       "path": "skills/hyperliquid-builders/SKILL.md",
-      "sha256": "197e4753854260759ba1bd8c8092365aaea9576d9adf778d48cb84ce91734826",
-      "bytes": 4054,
+      "sha256": "6bf04a389eaf826dd1492f9df0ad5cefd24ddfe011187d1b0594558709e72b08",
+      "bytes": 4171,
       "short": {
         "path": "template/skills/hyperliquid-builders/SKILL.md",
         "version": "0.1.0-short",
-        "sha256": "bd87cfa6ef42fa0a88f0a11a6236ff332feedc1cd8574b9cb0b19e86e02347b4",
-        "bytes": 1556
+        "sha256": "907edaf2a88fe680549599b9877d43411ccf0dd058f862d4dd8673c62a489c33",
+        "bytes": 1573
       }
     },
     {
@@ -61,13 +61,13 @@
       "version": "0.1.0",
       "tier": "core",
       "path": "skills/onchain-methodology/SKILL.md",
-      "sha256": "21512b815af2164b85cc0c1343b721c6e44ee0a2cc4df12f13a9ed7319d2f69e",
-      "bytes": 3647,
+      "sha256": "8b3c0f074520f8b08741bcc05f7102e2d79775da51510cfe7fa6efe15c3dae53",
+      "bytes": 3743,
       "short": {
         "path": "template/skills/onchain-methodology/SKILL.md",
         "version": "0.1.0-short",
-        "sha256": "ecd1dee187aa61c6bf51d967d2c587b158d30185b82fb7fa7051973450787871",
-        "bytes": 1672
+        "sha256": "e497f10afa5675f1fd7234beca6a0cfa327acf4c5ef280912ae71b33840428ae",
+        "bytes": 1707
       }
     },
     {
