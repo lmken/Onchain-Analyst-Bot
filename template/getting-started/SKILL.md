@@ -6,7 +6,7 @@ description: Use on the first conversation after this bot is added, or when Onch
 
 Release source:
 - `REPO = lmken/Onchain-Analyst-Bot`
-- `TAG = v0.1.1`
+- `TAG = v0.1.2`
 - `REPO_RAW = https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot`
 
 ## 1. Greet (one line)
@@ -77,4 +77,4 @@ Save the answers to memory.
 ## If something fails
 Say what failed in one line and continue with the skills that are present. "update skills" retries at any time.
 
-Skill version: onchain-getting-started v0.1.1 (Onchain Analyst)
+Skill version: onchain-getting-started v0.1.2 (Onchain Analyst)

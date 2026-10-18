@@ -1,5 +1,5 @@
 {
-  "release": "v0.1.1",
+  "release": "v0.1.2",
   "template_mode": "full",
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
@@ -194,10 +194,10 @@
       "slug": "onchain-getting-started",
       "name": "onchain-getting-started",
       "description": "Use on the first conversation after this bot is added, or when Onchain Analyst skills are missing, outdated or short starter versions.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "tier": "onboarding",
       "path": "template/getting-started/SKILL.md",
-      "sha256": "8001b2448a6a9f59688c59eb4e38ebacd8176a243f4dd9fe28b74b68cd69d1ea",
+      "sha256": "ab6a8e6836ac5a51afef86bb32205bf564132d24b6423a7502bffcb69117fea7",
       "bytes": 4360
     }
   ]
