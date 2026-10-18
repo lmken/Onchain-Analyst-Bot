@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3 (2026-10-17)
+- Optional auto-updates: setup asks each owner once whether to install updates automatically or ask first (default ask), saved as `update_mode: auto|ask` in `onchain-skills-manifest`; switch anytime ("update automatically" / "ask before updating"). In auto mode the weekly routine installs changed, new and `-short` upgrades after sha256 and byte checks, then sends a short note. Even in auto mode, skills the user edited are never overwritten, and removed skills never deleted, without asking.
+- `onchain-update-skills` (full v0.1.2, short v0.1.2-short): handles `update_mode`; routines change skills only in auto mode; each run refreshes the routine prompt if it differs from getting-started.
+- Anonymous update-check count: the check downloads `releases/latest/download/manifest.json` (a counted release asset; no identity), with the `releases/latest` API and raw-tag manifest as fallback. Every release now attaches `skills/manifest.json` (`scripts/release.sh`, `CONTRIBUTING.md`, `docs/telemetry.md`).
+- `onchain-getting-started` (v0.1.3): asks the update-mode question, new routine prompt, keeps an existing routine's prompt current; pinned `TAG` is now v0.1.3. Profile describes both modes; toolkit version 0.1.3.
+
 ## v0.1.2 (2026-10-17)
 - Fix: report files were sometimes delivered as a Markdown link to a `file://` or local path, which doesn't open in chat. `onchain-report` (v0.1.1) gains a "Delivering files" rule: attach every memo, CSV or chart in chat, never link a local path (mention it only as plain code text). `product-revenue-map` (full v0.1.1, short v0.1.1-short) points its file output to the same rule. Profile states it too.
 - `onchain-getting-started`: pinned `TAG` is now v0.1.2; toolkit version 0.1.2.

@@ -1,11 +1,11 @@
 {
-  "release": "v0.1.2",
+  "release": "v0.1.3",
   "template_mode": "full",
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
     "skills": 15,
-    "full_template_bytes": 42114,
-    "core_template_bytes": 15303
+    "full_template_bytes": 44740,
+    "core_template_bytes": 17220
   },
   "skills": [
     {
@@ -109,17 +109,17 @@
     {
       "slug": "onchain-update-skills",
       "name": "onchain-update-skills",
-      "description": "Use when the user asks to update, check or repair the Onchain Analyst skills or toolkit, or mentions a newer release; also use when a short starter skill should be upgraded to its full version.",
-      "version": "0.1.1",
+      "description": "Use when the user asks to update, check or repair the Onchain Analyst skills or toolkit, turn automatic updates on or off, or mentions a newer release; also use when a short starter skill should be upgraded to its full version.",
+      "version": "0.1.2",
       "tier": "core",
       "path": "skills/onchain-update-skills/SKILL.md",
-      "sha256": "a69e459d6ef3f085f723771bac544981929fd19e0d6c4d7f243dbad310731db8",
-      "bytes": 3655,
+      "sha256": "00442eca25c10986c46ed36eee458ea1e61392629ebc6bce8494c9667c50d42c",
+      "bytes": 4924,
       "short": {
         "path": "template/skills/onchain-update-skills/SKILL.md",
-        "version": "0.1.1-short",
-        "sha256": "f6904137839b8f37a7c34dbbbd5e6dbeb898aa773fd77fee0a18625bcb75fcdc",
-        "bytes": 1940
+        "version": "0.1.2-short",
+        "sha256": "77f43e66360a0c0b5f7cb987d95302463a64401fb3c144e73ca600d049b5e9bb",
+        "bytes": 2500
       }
     },
     {
@@ -194,11 +194,11 @@
       "slug": "onchain-getting-started",
       "name": "onchain-getting-started",
       "description": "Use on the first conversation after this bot is added, or when Onchain Analyst skills are missing, outdated or short starter versions.",
-      "version": "0.1.2",
+      "version": "0.1.3",
       "tier": "onboarding",
       "path": "template/getting-started/SKILL.md",
-      "sha256": "ab6a8e6836ac5a51afef86bb32205bf564132d24b6423a7502bffcb69117fea7",
-      "bytes": 4360
+      "sha256": "a2be2ca5503d6eb42dce6e48ba921bce00d168832296f8e7c848587b0c90e0fc",
+      "bytes": 5717
     }
   ]
 }

@@ -6,7 +6,7 @@ description: Use on the first conversation after this bot is added, or when Onch
 
 Release source:
 - `REPO = lmken/Onchain-Analyst-Bot`
-- `TAG = v0.1.2`
+- `TAG = v0.1.3`
 - `REPO_RAW = https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot`
 
 ## 1. Greet (one line)
@@ -48,14 +48,17 @@ Record every returned id.
 Write the memory `onchain-skills-manifest` with:
 - `repo`, `tag`, `REPO_RAW`, `template_mode` (from the manifest)
 - per skill: `{slug, name, id, version, source, installed_sha256}`
+- `update_mode`: `ask` or `auto` (step 7; default `ask`)
 - the date
 
 Other skills read `{REPO}`, `{TAG}` and `{REPO_RAW}` from this record.
 
 ## 7. Keep the weekly update check
-Do this on first run and whenever onchain-update-skills runs. List this bot's routines. If none is named "Check for skill updates", create it with UpdateRoutine, then tell the user in one line that it checks weekly and never installs anything without asking:
+Do this on first run and whenever onchain-update-skills runs.
+1. **Update mode.** If the record has no `update_mode` and the user is in chat, ask once: "When a new Onchain Analyst release is out, should I install it automatically or ask you first?" (auto / ask first; default ask first). Save `update_mode: auto|ask` in `onchain-skills-manifest`. The user can switch anytime ("update automatically" / "ask before updating"); save the new value and confirm in one line.
+2. **Routine.** List this bot's routines. If none is named "Check for skill updates", create it with UpdateRoutine and tell the user in one line that it checks weekly and, per their update mode, either installs verified updates and says what changed, or asks first. If it exists but its prompt differs from the text below, update it with UpdateRoutine.
 - name: `Check for skill updates`; schedule `0 9 * * 1` (Mondays ~9am, user's time zone); flexible timing
-- prompt: "Read-only update check for Onchain Analyst skills. Read the memory onchain-skills-manifest for the installed tag (repo: lmken/Onchain-Analyst-Bot if the memory is missing). Get the latest release from https://api.github.com/repos/lmken/Onchain-Analyst-Bot/releases/latest. If it isn't newer and no skill is a -short starter, stay silent. Otherwise fetch https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot/<tag>/CHANGELOG.md, tell the user in one or two sentences what's new, and offer to run onchain-update-skills. Never install, overwrite or delete skills from this routine."
+- prompt: "Weekly Onchain Analyst update check. Read the memory onchain-skills-manifest for the installed tag and update_mode (missing means ask; repo lmken/Onchain-Analyst-Bot if the memory is missing). Get the latest manifest with curl -sfL https://github.com/lmken/Onchain-Analyst-Bot/releases/latest/download/manifest.json (its release field is the latest tag). If that fails, get the tag from https://api.github.com/repos/lmken/Onchain-Analyst-Bot/releases/latest and the manifest from https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot/<tag>/skills/manifest.json. If the release isn't newer and no skill is a -short starter, stay silent. Otherwise read https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot/<tag>/CHANGELOG.md. If update_mode is ask: tell the user in one or two sentences what's new and offer to run onchain-update-skills; change nothing. If update_mode is auto: run onchain-update-skills in auto mode (install changed, new and -short skills only after each file's sha256 and bytes match the manifest; never overwrite a skill the user edited or delete a removed skill without asking), then send a short note on what was updated and that saying 'ask before updating' switches modes. Finally, if this prompt differs from the one in onchain-getting-started step 7, update this routine to that text."
 
 ## 8. Optional toolkit
 Ask: "Install the optional speed-up toolkit (Python, about 1–2 minutes)?"
@@ -77,4 +80,4 @@ Save the answers to memory.
 ## If something fails
 Say what failed in one line and continue with the skills that are present. "update skills" retries at any time.
 
-Skill version: onchain-getting-started v0.1.2 (Onchain Analyst)
+Skill version: onchain-getting-started v0.1.3 (Onchain Analyst)

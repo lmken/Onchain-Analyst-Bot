@@ -32,3 +32,52 @@ def test_every_data_skill_has_a_smoke_snippet():
             "polymarket-builders", "protocol-fees", "app-registry"]
     for s in need:
         assert "# smoke" in (ROOT / "skills" / s / "SKILL.md").read_text(), s
+
+
+def _routine_prompt():
+    import re
+    t = (ROOT / "template" / "getting-started" / "SKILL.md").read_text()
+    m = re.search(r'^- prompt: "(.*)"$', t, re.M)
+    assert m, "routine prompt line missing from getting-started step 7"
+    return m.group(1)
+
+
+def test_short_skills_fit_size_limits():
+    from lint_skills import FULL_MAX, SHORT_MAX
+    from skilllib import full_skills, short_skills
+    for slug, p in short_skills().items():
+        n = len(p.read_bytes())
+        assert n <= SHORT_MAX, f"short/{slug}: {n} > {SHORT_MAX}"
+    for slug, p in full_skills().items():
+        n = len(p.read_bytes())
+        assert n <= FULL_MAX, f"{slug}: {n} > {FULL_MAX}"
+
+
+def test_routine_prompt_handles_update_mode_and_counted_asset():
+    p = _routine_prompt()
+    assert "update_mode" in p
+    assert "If update_mode is ask" in p and "If update_mode is auto" in p
+    assert "curl -sfL https://github.com/lmken/Onchain-Analyst-Bot/releases/latest/download/manifest.json" in p
+    assert "api.github.com/repos/lmken/Onchain-Analyst-Bot/releases/latest" in p  # fallback kept
+    assert "edited" in p and "removed" in p  # auto never overwrites edits / deletes without asking
+    assert '"' not in p
+
+
+def test_update_skill_handles_update_mode():
+    for p in (ROOT / "skills" / "onchain-update-skills" / "SKILL.md",
+              ROOT / "template" / "skills" / "onchain-update-skills" / "SKILL.md"):
+        t = p.read_text()
+        assert "update_mode" in t and "auto" in t and "releases/latest/download/manifest.json" in t, p
+        assert "Never install, overwrite or delete anything from a routine" not in t, p
+
+
+def test_pins_match_release():
+    import re
+    from build_manifest import RELEASE
+    v = RELEASE.lstrip("v")
+    gs = (ROOT / "template" / "getting-started" / "SKILL.md").read_text()
+    assert f"- `TAG = {RELEASE}`" in gs
+    assert f'version = "{v}"' in (ROOT / "pyproject.toml").read_text()
+    assert f'__version__ = "{v}"' in (ROOT / "src" / "onchain" / "__init__.py").read_text()
+    assert f"Onchain-Analyst-Bot@{RELEASE}" in (ROOT / "README.md").read_text()
+    assert re.search(rf"^## {re.escape(RELEASE)} \(", (ROOT / "CHANGELOG.md").read_text(), re.M)

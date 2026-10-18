@@ -10,7 +10,7 @@ import sys
 
 from skilllib import CORE, ROOT, full_skills, parse, short_skills
 
-RELEASE = "v0.1.2"
+RELEASE = "v0.1.3"
 TEMPLATE_MODE = "full"  # preferred; switch to "core" if the template size measurement (M0) requires it
 
 

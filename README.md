@@ -31,11 +31,17 @@ Every number comes with its **sources** and a **coverage** label. The bot is rea
 2. Its getting-started skill checks your skills against the pinned release here (`skills/manifest.json`, sha256-checked).
 3. It asks before adding or upgrading anything.
 4. To refresh later, say **"update skills"**.
+5. Setup asks once whether to install updates **automatically** or **ask first** (default). A weekly routine checks for new releases; switch anytime by saying "update automatically" or "ask before updating". Skills you edited are never overwritten, and skills are never deleted, without asking.
+
+## Update-check count
+Each weekly check downloads `manifest.json` from the latest GitHub release, and GitHub counts those downloads anonymously (no identity). See `docs/telemetry.md`; read it with
+`gh api repos/lmken/Onchain-Analyst-Bot/releases --jq '.[].assets[]|{name,download_count}'`.
+Releasing: see `CONTRIBUTING.md` (always attach `skills/manifest.json`).
 
 ## Install the optional toolkit by hand
 ```bash
 python3 -m venv ~/.onchain/venv
-~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.2"
+~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.3"
 ~/.onchain/venv/bin/onchain setup && ~/.onchain/venv/bin/onchain doctor --live
 ```
 Some examples:
@@ -66,8 +72,8 @@ onchain price hyperliquid bitcoin
 skills/      14 skills + manifest.json (onboarded into each bot)
 template/    getting-started skill, short versions of 7 core skills, profile/memory text
 registry/    apps.yaml: app → HL builder addresses, Polymarket builder codes, DefiLlama slugs
-docs/        methodology.md, sources.md, snippets/ (stdlib scripts)
+docs/        methodology.md, sources.md, telemetry.md, snippets/ (stdlib scripts)
 src/onchain/ optional toolkit (`onchain` CLI)
-scripts/     build_manifest.py, lint_skills.py
+scripts/     build_manifest.py, lint_skills.py, release.sh
 tests/       unit, skills, snippets (live, opt-in)
 ```
