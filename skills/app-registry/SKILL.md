@@ -31,10 +31,19 @@ The registry is `{REPO_RAW}/{TAG}/registry/apps.yaml`. Read it with `curl -sf`; 
 1. Find a public source for the identifier: the app's docs, a DefiLlama adapter, an explorer label. Never guess from similar names.
 2. Verify it as above.
 3. Save it in `~/.onchain/registry.local.yaml` with the same schema (`apps: - id: …`) and record the source URL. Local entries override or extend the bundled file.
-4. If it's useful to everyone, suggest the user open a pull request on the repo. Never open one yourself.
+4. Share it (optional): prepare a prefilled GitHub issue the user opens and submits themselves. Never file issues yourself.
+   ```bash
+   python3 -c "import urllib.parse as u,sys;t,b=sys.argv[1:];print('https://github.com/{REPO}/issues/new?title='+u.quote(t)+'&body='+u.quote(b))" \
+     "Registry: <app> <field>" "App: <name>
+   Field: hyperliquid.builders / polymarket.builder_codes / defillama.slug
+   Value: <identifier>
+   Source: <public URL>
+   Verified: <check run and result, UTC date>"
+   ```
+   Give the user the link. They can also use the "Registry addition" issue form.
 
 ## Pitfalls
 - Addresses are lowercase 0x + 40 hex characters. PM builder codes are 0x + 64 hex characters.
 - Apps rotate builder addresses (e.g. a new main address plus a legacy one). Sum all verified ones.
 
-Skill version: app-registry v0.1.0 (Onchain Analyst)
+Skill version: app-registry v0.1.1 (Onchain Analyst)

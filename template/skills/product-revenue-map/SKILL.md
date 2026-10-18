@@ -15,8 +15,9 @@ Short version. Run onchain-update-skills to get the full one.
    - Union users only within one address namespace.
 5. **Cross-check:** compare each line with its DefiLlama child and the total with the parent. Explain gaps over 5% (scope, missing hours, fees vs revenue, attribution).
 
+Footer: sources, window, coverage per line.
 Toolkit: `onchain app <name> --window 30d`.
 
 Deliver any report or CSV as a chat attachment. Never link a `file://` URL or local path: those links don't open for the user.
 
-Skill version: product-revenue-map v0.1.1-short (Onchain Analyst)
+Skill version: product-revenue-map v0.1.2-short (Onchain Analyst)

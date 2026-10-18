@@ -17,6 +17,21 @@ SECRET = re.compile(r"(sk-[A-Za-z0-9]{20,}|ghp_[A-Za-z0-9]{20,}|github_pat_|xox[
 PERSONAL = re.compile(r"\b(luke|wavegod|moonpay|revi)\b|/home/box|/workspace/|@[a-z0-9_]{3,}\.(com|io)", re.I)
 REPO_LITERAL = re.compile(r"lmken|Onchain-Analyst-Bot")
 REPO_LITERAL_ALLOWED = {"onchain-getting-started"}
+# Skills that produce metrics must instruct the data-trust footer: sources, window and coverage.
+METRIC = {"app-compare", "hyperliquid-builders", "hyperliquid-trader", "onchain-methodology", "onchain-report",
+          "polymarket-builders", "polymarket-markets", "polymarket-wallets", "product-revenue-map", "protocol-fees"}
+
+
+def has_footer(text: str) -> bool:
+    """True if some 'footer' mention is followed (within 300 chars) by source, window and coverage."""
+    low = text.lower()
+    i = low.find("footer")
+    while i != -1:
+        span = low[i:i + 300]
+        if all(w in span for w in ("source", "window", "coverage")):
+            return True
+        i = low.find("footer", i + 1)
+    return False
 
 
 def lint(slug, s, short=False) -> list[str]:
@@ -50,6 +65,8 @@ def lint(slug, s, short=False) -> list[str]:
             continue  # defines REPO_RAW; its fetches use {REPO_RAW}/{TAG}
         if "{TAG}" not in u and "<" not in u:
             e.append(f"unpinned raw link {u}")
+    if slug in METRIC and not has_footer(s["text"]):
+        e.append("metric skill must instruct the footer: sources, window, coverage")
     for req in ("# ",):
         if req not in s["body"]:
             e.append("missing markdown heading")

@@ -12,7 +12,8 @@ description: Use for Polymarket builder codes (apps that route orders to Polymar
    - Script: `curl -sfO {REPO_RAW}/{TAG}/docs/snippets/pm_paginate.py && python3 pm_paginate.py <code> 168`
 3. Many builders charge a 0 builder fee, so 0 revenue with high volume is normal.
 4. If paging didn't reach the window start, revenue is a lower bound. Say so.
+5. Footer: sources, window (period), coverage (lower bound if paging stopped early).
 
 The full version adds daily series and more pitfalls. Say "update skills" to get it.
 
-Skill version: polymarket-builders v0.1.0-short (Onchain Analyst)
+Skill version: polymarket-builders v0.1.1-short (Onchain Analyst)

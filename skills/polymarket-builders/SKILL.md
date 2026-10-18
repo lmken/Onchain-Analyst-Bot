@@ -26,6 +26,6 @@ curl -s "https://data-api.polymarket.com/v2/builders/leaderboard?time_period=wee
 - If paging stops before the window start (`full_window: false`), the revenue is a lower bound. Say so.
 
 ## Output
-Show a ranking table: rank, builder, volume (shares), active makers, and when asked notional (USDC), builder fees (USDC) and take rate (bps). Footer: sources, period, fetch time and units note.
+Show a ranking table: rank, builder, volume (shares), active makers, and when asked notional (USDC), builder fees (USDC) and take rate (bps). Footer: sources, window (period), coverage (lower bound if paging stopped early), fetch time and units note.
 
-Skill version: polymarket-builders v0.1.0 (Onchain Analyst)
+Skill version: polymarket-builders v0.1.1 (Onchain Analyst)

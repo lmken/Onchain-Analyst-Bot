@@ -1,11 +1,11 @@
 {
-  "release": "v0.1.3",
+  "release": "v0.1.4",
   "template_mode": "full",
   "repo": "lmken/Onchain-Analyst-Bot",
   "totals": {
     "skills": 15,
-    "full_template_bytes": 44740,
-    "core_template_bytes": 17220
+    "full_template_bytes": 46976,
+    "core_template_bytes": 17772
   },
   "skills": [
     {
@@ -22,47 +22,47 @@
       "slug": "app-registry",
       "name": "app-registry",
       "description": "Use to look up, add or verify which Hyperliquid builder addresses, Polymarket builder codes or DefiLlama slugs belong to an app, wallet or trading frontend.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "extended",
       "path": "skills/app-registry/SKILL.md",
-      "sha256": "c2d055f78c1a83676253aa1c8e90b853c120a6d26792d1ce0d32d53bfe5797d4",
-      "bytes": 2274
+      "sha256": "204f0cb619c3ebddf1c6b91188a26d0a9a3493a019e66f4e50314e4def1b71e7",
+      "bytes": 2752
     },
     {
       "slug": "hyperliquid-builders",
       "name": "hyperliquid-builders",
       "description": "Use for Hyperliquid builder codes and the frontends behind them (wallets, trading apps, terminals) \u2014 builder revenue, volume, unique traders, take rate, retention, whale concentration, rankings or comparisons.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/hyperliquid-builders/SKILL.md",
-      "sha256": "6bf04a389eaf826dd1492f9df0ad5cefd24ddfe011187d1b0594558709e72b08",
-      "bytes": 4171,
+      "sha256": "3d32465a3295dfffd30f58c5c71b8831ef2454dc702bbcee23e74c2a9e1a2545",
+      "bytes": 4188,
       "short": {
         "path": "template/skills/hyperliquid-builders/SKILL.md",
-        "version": "0.1.0-short",
-        "sha256": "907edaf2a88fe680549599b9877d43411ccf0dd058f862d4dd8673c62a489c33",
-        "bytes": 1573
+        "version": "0.1.1-short",
+        "sha256": "4c42651016e53021e8208b4de9ca43e93214cd0bc54b0243e9c43e46378be237",
+        "bytes": 1602
       }
     },
     {
       "slug": "hyperliquid-trader",
       "name": "hyperliquid-trader",
       "description": "Use when asked about a specific Hyperliquid address \u2014 open positions, account value, recent fills, realized PnL net of fees, fee tier, or which frontends (builder codes) it trades through.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "extended",
       "path": "skills/hyperliquid-trader/SKILL.md",
-      "sha256": "73cd1a6d66c31bc51836d33f38e7d9c408695a71751aab34c288a0e8bcb3c1aa",
-      "bytes": 2089
+      "sha256": "1b95898e6196348457f82769ea3d7bf1d6ac9266b8f6df228a1bace9be444f72",
+      "bytes": 2113
     },
     {
       "slug": "onchain-methodology",
       "name": "onchain-methodology",
       "description": "Use before reporting any on-chain metric (revenue, volume, traders, retention, PnL, fees), or when asked how a number was computed or whether it can be trusted.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/onchain-methodology/SKILL.md",
-      "sha256": "8b3c0f074520f8b08741bcc05f7102e2d79775da51510cfe7fa6efe15c3dae53",
-      "bytes": 3743,
+      "sha256": "796651ad88e6c72c4bd082220f0539d17c65843404944fa9353e59adfd0cf6b4",
+      "bytes": 3803,
       "short": {
         "path": "template/skills/onchain-methodology/SKILL.md",
         "version": "0.1.0-short",
@@ -74,11 +74,11 @@
       "slug": "onchain-report",
       "name": "onchain-report",
       "description": "Use when the user wants an on-chain analysis delivered as a CSV, a chart, or a short Markdown memo rather than a chat answer.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "tier": "extended",
       "path": "skills/onchain-report/SKILL.md",
-      "sha256": "19804e01e0203c1da8049588df4937e218a4f9ec759fce9c060973976a44dfd9",
-      "bytes": 1895
+      "sha256": "2194e9ff1ee869a64b24d8fa68e43c229cd5ab0e6be04705b1f2c6f80f103443",
+      "bytes": 2895
     },
     {
       "slug": "onchain-setup-toolkit",
@@ -126,79 +126,79 @@
       "slug": "polymarket-builders",
       "name": "polymarket-builders",
       "description": "Use for Polymarket builder codes (apps that route orders to Polymarket) \u2014 rankings by volume, active makers, builder-fee revenue, notional and take rate over a day, week or month.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/polymarket-builders/SKILL.md",
-      "sha256": "3d73c063195b132a8c2e1e96b1c07be8eb05f5e9c98aa1788830e6b4d41d4f1c",
-      "bytes": 1847,
+      "sha256": "3590446d81179372a852c4c53379484e2fffdd925160634c24ed1561ae7f40f0",
+      "bytes": 1904,
       "short": {
         "path": "template/skills/polymarket-builders/SKILL.md",
-        "version": "0.1.0-short",
-        "sha256": "d2c42992582b20e00d4bb26c63420541bdb24aa71cddf6ecb2d14cc28dc2ab15",
-        "bytes": 1149
+        "version": "0.1.1-short",
+        "sha256": "4c2ccab86bea044dd63ccc284886df7a0c855ed9360cd4d2b08d99ae988ede14",
+        "bytes": 1234
       }
     },
     {
       "slug": "polymarket-markets",
       "name": "polymarket-markets",
       "description": "Use for finding Polymarket markets or events and their prices, price history, order book, liquidity, open interest, top holders or recent trades.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "extended",
       "path": "skills/polymarket-markets/SKILL.md",
-      "sha256": "4e21a8be98f88b27deec623d60c481e69578707589dd10db131150060e4b2e9d",
-      "bytes": 2106
+      "sha256": "fd181735e19b00d38cb83600238d095a5867e34abe665e07ba1a38c5b290e6f6",
+      "bytes": 2157
     },
     {
       "slug": "polymarket-wallets",
       "name": "polymarket-wallets",
       "description": "Use when asked about a Polymarket wallet or trader \u2014 open and closed positions, realized/unrealized PnL, PnL over time, biggest wins, volume, or recent activity.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "extended",
       "path": "skills/polymarket-wallets/SKILL.md",
-      "sha256": "4a4b5f37f34d9109520a0076669a90371ffe6ecd36a1744c6b20bc996f1d6b20",
-      "bytes": 1751
+      "sha256": "0291f5f382adcae110e8d87c06f952c15a0ce52612ec9156e06d4bcf0eeb6624",
+      "bytes": 1816
     },
     {
       "slug": "product-revenue-map",
       "name": "product-revenue-map",
       "description": "Use when asked how much any on-chain app, wallet, frontend or protocol makes (revenue, fees, volume, users) across all its products and chains. Maps the business model to on-chain footprints, measures each line once, rolls up with dedupe rules and cross-checks aggregators.",
-      "version": "0.1.1",
+      "version": "0.1.2",
       "tier": "core",
       "path": "skills/product-revenue-map/SKILL.md",
-      "sha256": "ac1fcff736a5f92290771a8d37c8ae596b4f2ea988db2a945e91748c6bc45f4c",
-      "bytes": 4805,
+      "sha256": "67d7e35969b9866740eb5d2ccada0e889eb3473b59f3be528bd395bf3ca8a536",
+      "bytes": 4876,
       "short": {
         "path": "template/skills/product-revenue-map/SKILL.md",
-        "version": "0.1.1-short",
-        "sha256": "2767aec64b0001a51270362f245130193df8d4c99ef6ae46318bccecc5122560",
-        "bytes": 1831
+        "version": "0.1.2-short",
+        "sha256": "d99b33e0725c4c297b65c04b540406db05abe16fade6fa2d2cc338853c178083",
+        "bytes": 1875
       }
     },
     {
       "slug": "protocol-fees",
       "name": "protocol-fees",
       "description": "Use for a protocol's or app's fees, revenue or holders revenue over time, fee rankings across protocols, or current token prices.",
-      "version": "0.1.0",
+      "version": "0.1.1",
       "tier": "core",
       "path": "skills/protocol-fees/SKILL.md",
-      "sha256": "5570a95a7de2e658caf2784dcd5516056dfcf1c71b1caf30282bb689a6dfa24d",
-      "bytes": 2054,
+      "sha256": "3a3b335861dfcaba62eb143bc53532e611915f02987537d2df3a9a95da594caf",
+      "bytes": 2114,
       "short": {
         "path": "template/skills/protocol-fees/SKILL.md",
-        "version": "0.1.0-short",
-        "sha256": "1327c7c4f0a5e056e589365e75eb48703b12fe2989966565ddd7075c9df52d7a",
-        "bytes": 997
+        "version": "0.1.1-short",
+        "sha256": "b6528036c66c341bdbf2e5c809f78ec58fcc9af069b55ecd55b69a5944d027d8",
+        "bytes": 1038
       }
     },
     {
       "slug": "onchain-getting-started",
       "name": "onchain-getting-started",
       "description": "Use on the first conversation after this bot is added, or when Onchain Analyst skills are missing, outdated or short starter versions.",
-      "version": "0.1.3",
+      "version": "0.1.4",
       "tier": "onboarding",
       "path": "template/getting-started/SKILL.md",
-      "sha256": "a2be2ca5503d6eb42dce6e48ba921bce00d168832296f8e7c848587b0c90e0fc",
-      "bytes": 5717
+      "sha256": "b91988dd61b887384571dcdcf0c8402707fc5c96164a440a469df5a1a9f3668d",
+      "bytes": 6070
     }
   ]
 }

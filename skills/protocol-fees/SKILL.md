@@ -31,6 +31,6 @@ curl -s "https://coins.llama.fi/prices/current/coingecko:hyperliquid" | python3 
 - Licence: DefiLlama data is for personal/non-commercial use; cite "Source: DefiLlama".
 
 ## Output
-Show totals for the window plus a short daily or weekly series, and the methodology line. Footer: source, window, fetch time.
+Show totals for the window plus a short daily or weekly series, and the methodology line. Footer: sources, window (complete UTC days), coverage (latest day may be restated), fetch time.
 
-Skill version: protocol-fees v0.1.0 (Onchain Analyst)
+Skill version: protocol-fees v0.1.1 (Onchain Analyst)

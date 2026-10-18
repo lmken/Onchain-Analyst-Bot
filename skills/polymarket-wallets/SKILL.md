@@ -25,6 +25,6 @@ curl -s "https://data-api.polymarket.com/v2/user-stats?user=0x56687bf447db6ffa42
 - Resolved markets move value from unrealized to realized. Don't add the two across different snapshot times.
 
 ## Output
-Show the stats card, a positions table sorted by current value, and the PnL trend. Footer: sources and fetch time (UTC).
+Show the stats card, a positions table sorted by current value, and the PnL trend. Footer: sources, window (fetch time, UTC) and coverage (complete, or partial if paging stopped early).
 
-Skill version: polymarket-wallets v0.1.0 (Onchain Analyst)
+Skill version: polymarket-wallets v0.1.1 (Onchain Analyst)

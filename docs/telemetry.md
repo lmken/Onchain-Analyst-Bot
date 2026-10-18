@@ -12,7 +12,7 @@ There is no server of ours and no telemetry code. The only signal is GitHub's ow
 
 ## How to read it
 ```bash
-gh release view v0.1.3 --repo lmken/Onchain-Analyst-Bot --json assets --jq '.assets[]|{name,downloadCount}'
+gh release view --repo lmken/Onchain-Analyst-Bot   # latest release --json assets --jq '.assets[]|{name,downloadCount}'
 gh api repos/lmken/Onchain-Analyst-Bot/releases --jq '.[] | {tag: .tag_name, assets: [.assets[]|{name,download_count}]}'
 ```
 The releases page on GitHub shows the same numbers.

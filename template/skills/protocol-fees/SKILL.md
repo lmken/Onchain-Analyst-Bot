@@ -14,6 +14,6 @@ description: Use for a protocol's or app's fees, revenue or holders revenue over
    - The latest day may be restated for about 24h.
    - Don't mix fees and revenue.
    - Paid (`402`) endpoints are off-limits.
-   - Cite "Source: DefiLlama".
+   - Footer: sources (DefiLlama), window (complete UTC days), coverage.
 
-Skill version: protocol-fees v0.1.0-short (Onchain Analyst)
+Skill version: protocol-fees v0.1.1-short (Onchain Analyst)

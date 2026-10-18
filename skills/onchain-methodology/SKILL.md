@@ -47,6 +47,7 @@ Apply every rule here before you state a number. Full definitions and worked exa
 - Explain any gap rather than hiding it.
 
 ## Footer on every answer
+Every metric answer ends with sources, window and coverage:
 `Sources: … | Window: YYYY-MM-DD → YYYY-MM-DD UTC (complete days) | Coverage: N/N days complete (statuses) | Method: Onchain Analyst v0.1.0`
 
-Skill version: onchain-methodology v0.1.0 (Onchain Analyst)
+Skill version: onchain-methodology v0.1.1 (Onchain Analyst)

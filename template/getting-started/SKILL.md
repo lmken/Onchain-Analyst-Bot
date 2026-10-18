@@ -6,7 +6,7 @@ description: Use on the first conversation after this bot is added, or when Onch
 
 Release source:
 - `REPO = lmken/Onchain-Analyst-Bot`
-- `TAG = v0.1.3`
+- `TAG = v0.1.4`
 - `REPO_RAW = https://raw.githubusercontent.com/lmken/Onchain-Analyst-Bot`
 
 ## 1. Greet (one line)
@@ -14,7 +14,7 @@ Release source:
 
 ## 2. Take stock
 1. List this bot's skills.
-2. Onchain skills end with a line `Skill version: <slug> v<version>[-short] (Onchain Analyst)`. Note each one's slug, version and id.
+2. Note the slug, version and id of each skill ending `Skill version: <slug> v<version>[-short] (Onchain Analyst)`.
 3. Fetch the release manifest byte-exact:
    ```bash
    curl -sf {REPO_RAW}/{TAG}/skills/manifest.json
@@ -26,12 +26,12 @@ Release source:
 - **Otherwise:**
   - **upgrade:** installed skills marked `-short` or older
   - **add:** manifest skills not present
-- **Clash:** a skill with the same name but no Onchain version line belongs to the user. Never overwrite it. Offer to skip it, or to save ours as `<name>-onchain`.
+- **Clash:** a same-name skill without our version line is the user's. Never overwrite it; offer to skip or save ours as `<name>-onchain`.
 
 ## 4. Ask once
 Ask: "Upgrade N starter skills and add M skills from release {TAG}? Skills are saved to your library and every one of your bots can see them."
 - Choices: yes / pick / not now.
-- On "not now", the starter skills keep working. The user can say "update skills" later.
+- "not now": starter skills keep working; "update skills" works later.
 
 ## 5. Apply only what was approved
 For each skill:
@@ -42,7 +42,6 @@ For each skill:
    - **upgrade:** UpdateSkill `write` with the existing id, the same name, the description and the body
    - **add:** UpdateSkill `write` without an id
 
-Record every returned id.
 
 ## 6. Record
 Write the memory `onchain-skills-manifest` with:
@@ -51,7 +50,7 @@ Write the memory `onchain-skills-manifest` with:
 - `update_mode`: `ask` or `auto` (step 7; default `ask`)
 - the date
 
-Other skills read `{REPO}`, `{TAG}` and `{REPO_RAW}` from this record.
+Other skills read `{REPO}`, `{TAG}`, `{REPO_RAW}` from it.
 
 ## 7. Keep the weekly update check
 Do this on first run and whenever onchain-update-skills runs.
@@ -70,6 +69,8 @@ Ask: "Install the optional speed-up toolkit (Python, about 1–2 minutes)?"
 2. Preferred output: chat tables, CSV or memo?
 3. Default window: suggest the last 30 complete UTC days.
 
+4. Offer (off by default): "Want a Monday digest of the apps you follow?" Only on yes, set it up per onchain-report "Weekly digest".
+
 Save the answers to memory.
 
 ## 10. Demo
@@ -77,7 +78,15 @@ Save the answers to memory.
 - With the toolkit: also run `onchain hl builders --window 7d --top 10`.
 - Show the sources and coverage footer.
 
-## If something fails
-Say what failed in one line and continue with the skills that are present. "update skills" retries at any time.
+## 11. Starter questions
+End by suggesting about five first questions, e.g.:
+- "How much did <app> make in the last 30 days across all its products?"
+- "Compare <frontend A> and <frontend B> on Hyperliquid this week."
+- "Look up Hyperliquid or Polymarket wallet <address>."
+- "Top Polymarket builders this week?"
+- "<protocol>'s fee trend over 90 days?"
 
-Skill version: onchain-getting-started v0.1.3 (Onchain Analyst)
+## If something fails
+Say what failed in one line and continue. "update skills" retries anytime.
+
+Skill version: onchain-getting-started v0.1.4 (Onchain Analyst)

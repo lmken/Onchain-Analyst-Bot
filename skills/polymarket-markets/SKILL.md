@@ -26,6 +26,6 @@ curl -s "https://gamma-api.polymarket.com/public-search?q=fed&limit_per_type=3" 
 - Volume fields are USDC notional on Gamma. That's different from the builder leaderboard, which uses shares.
 
 ## Output
-Show the market table (question, price, 24h volume, liquidity, end date), then holders or history if asked. Footer: sources and fetch time (UTC).
+Show the market table (question, price, 24h volume, liquidity, end date), then holders or history if asked. Footer: sources, window (snapshot fetch time, UTC) and coverage (e.g. top holders only).
 
-Skill version: polymarket-markets v0.1.0 (Onchain Analyst)
+Skill version: polymarket-markets v0.1.1 (Onchain Analyst)

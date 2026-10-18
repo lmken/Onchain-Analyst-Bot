@@ -64,6 +64,7 @@ One row per line: stream, chain, fees, revenue, taker volume, users, source, cov
 - the % of revenue measured on-chain
 - a list of what isn't visible
 - a cross-check table
+- the footer (onchain-methodology): sources, window, coverage per line
 
 If you also write a report or CSV, deliver it as a chat attachment (see onchain-report). Never link a `file://` URL or local path: those links don't open for the user.
 
@@ -72,4 +73,4 @@ If you also write a report or CSV, deliver it as a chat attachment (see onchain-
 - Cross-chain fees are often booked on one chain. Don't re-add them per chain.
 - Fresh days get restated. Use complete UTC days at least a day old.
 
-Skill version: product-revenue-map v0.1.1 (Onchain Analyst)
+Skill version: product-revenue-map v0.1.2 (Onchain Analyst)

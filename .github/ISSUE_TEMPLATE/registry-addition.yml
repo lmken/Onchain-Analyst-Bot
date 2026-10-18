@@ -1,0 +1,48 @@
+name: Registry addition
+description: Suggest a new app, Hyperliquid builder address, Polymarket builder code or DefiLlama slug for registry/apps.yaml.
+title: "Registry: <app> <field>"
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Please include a public source and the keyless check you ran (see `registry/SCHEMA.md`). Never paste keys or private data.
+  - type: input
+    id: app
+    attributes:
+      label: App
+      description: Display name and, if known, the registry id (lowercase slug).
+      placeholder: "Example Wallet (example-wallet)"
+    validations:
+      required: true
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field
+      options:
+        - hyperliquid.builders (address)
+        - polymarket.builder_codes (bytes32)
+        - defillama.slug / defillama.perps
+        - new app entry
+        - correction to an existing entry
+    validations:
+      required: true
+  - type: textarea
+    id: value
+    attributes:
+      label: Value
+      description: "HL builder: lowercase 0x + 40 hex. PM builder code: 0x + 64 hex. DefiLlama: the slug."
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Public source
+      description: App docs, DefiLlama adapter, explorer label or another public URL.
+    validations:
+      required: true
+  - type: textarea
+    id: verified
+    attributes:
+      label: Verification
+      description: Which check you ran and its result, with the UTC date (e.g. builderRewards > 0, leaderboard entry, DefiLlama 200).

@@ -38,10 +38,16 @@ Each weekly check downloads `manifest.json` from the latest GitHub release, and 
 `gh api repos/lmken/Onchain-Analyst-Bot/releases --jq '.[].assets[]|{name,download_count}'`.
 Releasing: see `CONTRIBUTING.md` (always attach `skills/manifest.json`).
 
+## Example output
+A real snapshot: FOMO's 30-day rollup across all its products (Sep 17–Oct 16, 2026 UTC): about $22.7M fees, $21.5M revenue, within 0.8% of DefiLlama's parent total. See [docs/examples/fomo-30d.md](docs/examples/fomo-30d.md).
+
+## Registry additions
+Know an app's builder address, Polymarket builder code or DefiLlama slug that's missing? The bot can prepare a prefilled issue for you to submit, or use the "Registry addition" issue form.
+
 ## Install the optional toolkit by hand
 ```bash
 python3 -m venv ~/.onchain/venv
-~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.3"
+~/.onchain/venv/bin/pip install "git+https://github.com/lmken/Onchain-Analyst-Bot@v0.1.4"
 ~/.onchain/venv/bin/onchain setup && ~/.onchain/venv/bin/onchain doctor --live
 ```
 Some examples:
@@ -72,7 +78,7 @@ onchain price hyperliquid bitcoin
 skills/      14 skills + manifest.json (onboarded into each bot)
 template/    getting-started skill, short versions of 7 core skills, profile/memory text
 registry/    apps.yaml: app → HL builder addresses, Polymarket builder codes, DefiLlama slugs
-docs/        methodology.md, sources.md, telemetry.md, snippets/ (stdlib scripts)
+docs/        methodology.md, sources.md, telemetry.md, examples/, snippets/ (stdlib scripts)
 src/onchain/ optional toolkit (`onchain` CLI)
 scripts/     build_manifest.py, lint_skills.py, release.sh
 tests/       unit, skills, snippets (live, opt-in)

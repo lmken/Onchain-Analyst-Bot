@@ -64,6 +64,6 @@ python3 -c "import lz4.frame;open('d.csv','wb').write(lz4.frame.decompress(open(
 - If either check fails, say so and show both numbers.
 
 ## Output
-Lead with the table, then add 2–3 lines of interpretation and the methodology footer, including coverage, e.g. "30/30 days complete (12 complete, 18 gapfilled)".
+Lead with the table, then add 2–3 lines of interpretation and the footer (onchain-methodology): sources, window, coverage, e.g. "30/30 days complete (12 complete, 18 gapfilled)".
 
-Skill version: hyperliquid-builders v0.1.0 (Onchain Analyst)
+Skill version: hyperliquid-builders v0.1.1 (Onchain Analyst)

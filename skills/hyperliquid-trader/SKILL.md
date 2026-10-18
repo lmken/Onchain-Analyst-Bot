@@ -32,6 +32,6 @@ curl -s https://api.hyperliquid.xyz/info -H 'Content-Type: application/json' \
 - Unrealized PnL comes from `clearinghouseState` and is a point-in-time value. Give the time it was fetched (UTC).
 
 ## Output
-Show a profile card (account value, positions table), then the window stats and PnL. End with the footer: sources, window, fetch time, and the 10k-fill caveat if it applies.
+Show a profile card (account value, positions table), then the window stats and PnL. End with the footer: sources, window, fetch time, and coverage (complete, or the 10k-fill caveat if it applies).
 
-Skill version: hyperliquid-trader v0.1.0 (Onchain Analyst)
+Skill version: hyperliquid-trader v0.1.1 (Onchain Analyst)

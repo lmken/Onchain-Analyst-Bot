@@ -81,3 +81,42 @@ def test_pins_match_release():
     assert f'__version__ = "{v}"' in (ROOT / "src" / "onchain" / "__init__.py").read_text()
     assert f"Onchain-Analyst-Bot@{RELEASE}" in (ROOT / "README.md").read_text()
     assert re.search(rf"^## {re.escape(RELEASE)} \(", (ROOT / "CHANGELOG.md").read_text(), re.M)
+
+
+def test_metric_skills_instruct_data_trust_footer():
+    from lint_skills import METRIC, has_footer
+    from skilllib import full_skills, short_skills
+    fulls, shorts = full_skills(), short_skills()
+    assert METRIC <= set(fulls)
+    for slug in METRIC:
+        assert has_footer(fulls[slug].read_text()), slug
+        if slug in shorts:
+            assert has_footer(shorts[slug].read_text()), f"short/{slug}"
+    assert not has_footer("Footer: source, window, fetch time.")  # coverage missing → rule fires
+
+
+def test_getting_started_starters_and_opt_in_digest():
+    gs = (ROOT / "template" / "getting-started" / "SKILL.md").read_text()
+    start = gs.index("## 11. Starter questions")
+    assert gs.index("## 10. Demo") < start
+    assert sum(1 for l in gs[start:].splitlines() if l.startswith('- "')) >= 5
+    assert "off by default" in gs and "Only on yes" in gs and "Weekly digest" in gs
+    rep = (ROOT / "skills" / "onchain-report" / "SKILL.md").read_text()
+    assert "Weekly onchain digest" in rep and "opt-in" in rep and "Turn it off" in rep
+
+
+def test_registry_contribution_is_user_submitted():
+    import yaml
+    t = (ROOT / "skills" / "app-registry" / "SKILL.md").read_text()
+    assert "https://github.com/{REPO}/issues/new?title=" in t and "&body=" in t
+    assert "Never file issues yourself" in t
+    form = yaml.safe_load((ROOT / ".github" / "ISSUE_TEMPLATE" / "registry-addition.yml").read_text())
+    assert form["name"] == "Registry addition" and form["body"]
+
+
+def test_example_report_is_labelled_snapshot():
+    t = (ROOT / "docs" / "examples" / "fomo-30d.md").read_text()
+    for s in ("Snapshot", "2026-09-17 → 2026-10-16 UTC", "22,713,208", "21,459,785", "22,531,680", "+0.8%",
+              "1,379,560", "204,072", "25,452", "Sources:", "Coverage:"):
+        assert s in t, s
+    assert "docs/examples/fomo-30d.md" in (ROOT / "README.md").read_text()
