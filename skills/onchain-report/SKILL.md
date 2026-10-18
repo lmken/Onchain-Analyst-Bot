@@ -28,8 +28,12 @@ each source + endpoint, fetch time (UTC), "complete UTC days", Onchain Analyst v
 - Toolkit shortcut: `onchain --format md <command>` produces the tables to paste in.
 - Save the memo to `~/.onchain/out/<slug>-<date>.md` and attach the file in chat.
 
+## Delivering files
+- Deliver every file (memo, CSV, chart) as a chat attachment. A file saved under `~/.onchain/out/` must be attached, not linked.
+- Never put a `file://` URL or local path in a Markdown link: those links don't open for the user. Mention a path only as plain code text, if at all.
+
 ## Rules
 - Every number in a report must come from a query in this session. Never estimate a figure silently.
 - Don't post or send reports anywhere. Hand the file to the user.
 
-Skill version: onchain-report v0.1.0 (Onchain Analyst)
+Skill version: onchain-report v0.1.1 (Onchain Analyst)
